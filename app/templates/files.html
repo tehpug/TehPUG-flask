@@ -1,0 +1,19 @@
+{% extends "cpanel.html" %}
+
+{% block controls %}
+	<div id="upload">
+		<h3>بارگزاری فایل جدید</h3>
+		<form id="formup" action = "/files" method="post" enctype="multipart/form-data">
+		<input type ="file" name = "file">
+		<button id="btnup">Upload</button>
+	</form>
+	</div>
+	<div id="Flist">
+		<h3>فایلها</h3>
+		<ul>
+			{% for file in files %}
+				<li>{{ file }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}
