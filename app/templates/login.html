@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block contents %}
+	<div id="login">
+		<h3>ورود</h3>
+		<form action="" method="post" name="login">
+    	{{ form.hidden_tag() }}
+    	<p>
+        	نام کاربری:<br>
+        	{{ form.username(size=26) }}<br>
+    	</p>
+    	<p>
+        	گذرواژه:<br>
+        	{{ form.password(size=26) }}<br>
+    	</p>
+    	<p>{{ form.remember_me }} مرا به خاطر بسپار</p>
+    	<p><input type="submit" value="ورود" style="width: 50px; height: 20px;"></p>
+		</form>
+	</div>
+{% endblock %}
