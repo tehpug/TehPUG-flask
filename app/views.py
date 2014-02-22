@@ -3,27 +3,43 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from app import app, db, lm
 from forms import LoginForm
 from models import User
+import os
 
 ###-------------Control Panel and logins-----------###
 @lm.user_loader
 def load_user(id):
 	return User.query.get(int(id))
 
+@app.before_request
+def before_request():
+	g.user = current_user
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+	if g.user is not None and g.user.is_authenticated():
+		return redirect(url_for('cpanel'))
 	form = LoginForm()
 	if form.validate_on_submit():
 		session['remember_me'] = form.remember_me.data
-		#Do the Login
+		user = User.query.filter_by(username = form.username.data).first()
+		if user:
+			if user.password == form.password.data:
+				remember_me = False
+    			if 'remember_me' in session:
+        			remember_me = session['remember_me']
+        			session.pop('remember_me', None)
+				login_user(user, remember = remember_me)
 	return render_template('login.html', form = form)
 
-#@login_required
+
 @app.route('/cpanel')
+@login_required
 def cpanel():
 	return render_template('cpanel.html')
 
-#@login_required
+
 @app.route('/files', methods = ['GET', 'POST','DELETE'])
+@login_required
 def files():
 	if request.method == 'POST':
 		file = request.files['file']
