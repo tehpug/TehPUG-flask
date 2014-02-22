@@ -3,6 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from app import app, db, lm
 from forms import LoginForm
 from models import User
+from hashlib import sha256
 import os
 
 ###-------------Control Panel and logins-----------###
@@ -23,7 +24,7 @@ def login():
 		session['remember_me'] = form.remember_me.data
 		user = User.query.filter_by(username = form.username.data).first()
 		if user:
-			if user.password == form.password.data:
+			if user.password == sha256(form.password.data).hexdigest():
 				remember_me = False
     			if 'remember_me' in session:
         			remember_me = session['remember_me']
@@ -63,6 +64,7 @@ def tehpug():
 
 @app.route('/sessions')
 def sessions():
+	logout_user()
 	return render_template('sessions.html')
 
 @app.route('/news')
