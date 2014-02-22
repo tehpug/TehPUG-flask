@@ -21,3 +21,14 @@ class User(db.Model):
 
 	def __repr__(self):
 		return '<User %r>' % (self.username)
+
+class Session(db.Model):
+	"""sessions info in Database"""
+	id = db.Column(db.Integer, primary_key = True)
+	title = db.Column(db.String(100), index = True)
+	description = db.Column(db.String(4000), index = True)
+	sound = db.Column(db.String(200))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+	def __repr__(self):
+		return '<Session %r>' % (self.title)

@@ -1,0 +1,30 @@
+{% extends "cpanel.html" %}
+
+{% block controls %}
+	<div id="add_session">
+		<h3>افزودن جلسه جدید</h3>
+		<form id="form-session" action="/cpanel/sessions" method="post" name="add-session">
+            {{ form.hidden_tag() }}
+			<p>
+				عنوان:
+				{{ form.title(size=70) }}
+			</p>
+			<p>
+				توضیحات:<br>
+				{{form.description(cols=75, rows=20)}}
+			</p>
+			<p>
+				<!--selecting sound file for session-->
+			</p>
+			<button id="btnsession" style="width: 50px; height: 20px;">ارسال</button>
+		</form>
+	</div>
+	<div id="C_sessions">
+		<h3>لیست جلسات</h3>
+		<ul>
+			{% for session in sessions %}
+				<li>{{ session.title }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

@@ -58,17 +58,17 @@ a:hover{
 	height: 100%;
 	min-height: 490px;
 }
-#map, #Tehpug, #sessions, #Flist, #upload, #login{
+#map, #Tehpug, #sessions, #Flist, #upload, #login, #add_session, #C_sessions{
 	margin: 15px; 
 	background-color: #808080;
 	width: 601px;
 	border-radius: 10px;
 }
-#map h3,#Tehpug h3,#sessions h3,#Flist h3,#upload h3, #login h3{
+#map h3, #Tehpug h3, #sessions h3, #Flist h3, #upload h3, #login h3, #add_session h3, #C_sessions h3{
 	padding: 10px 15px 0 0;
 }
-#map p,#Tehpug p, #login p{
-	padding: 10px 15px 10px 10px;
+#map p,#Tehpug p, #login p, #form-session p, #btnsession{
+	margin: 10px 15px 10px 10px;
 }
 #map img{
 	margin: 0 36px 10px 0;
@@ -78,7 +78,7 @@ a:hover{
 	float: left;
 	margin: 0 15px 15px 70px;
 }
-#sessions li,#Flist li{
+#sessions li,#Flist li, #C_sessions li{
 	background-color: #DDDDDD;
 	list-style: none;
 	margin: 10px 30px 10px 50px;
@@ -107,16 +107,16 @@ a:hover{
 	border-radius: 7px;
 	padding: 3px;
 }
-#upload{
+#upload, #add_session{
 	width: 680px;
 	float: left;
 }
-#Flist{
+#Flist, #C_sessions{
 	float: left;
 	width: 400px;
 	padding-bottom: 10px;
 }
-#formup{
+#formup, #form-session{
 	margin:15px;
 }
 #Flist li, #Flist ul{

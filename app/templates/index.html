@@ -4,11 +4,9 @@
 	<div id="sessions">
 		<h3>لیست جلسات اخیر</h3>
 		<ul>
-			<!--sessions list here-->
-			<li><a href="#">جلسه ۱۳ (۲۹/۱۱/۱۳۹۲)</a></li>
-			<li><a href="#">جلسه ۱۲ (۱۵/۱۱/۱۳۹۲)</a></li>
-			<li><a href="#">جلسه ۱۱ (۱/۱۱/۱۳۹۲)</a></li>
-			<li><a href="#">جلسه ۱۰ (۱۷/۱۰/۱۳۹۲)</a></li>
+			{% for session in sessions %}
+				<li>{{ session.title }}</li>
+			{% endfor %}
 		</ul>
 		<br>
 	</div>
