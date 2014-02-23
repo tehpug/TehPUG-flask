@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block contents %}
-	<center><h1>متاسفانه صفحه ی مورد نظر شما موجود نمی باشد</h1></center>
+	<aside id="ss">
+		<h3>{{ ss.title }}</h3>
+		<p>{{ ss.description }}</p>
+	</aside>
+	<aside class="session-bar">
+		<ul>
+			{% for session in sessions %}
+				<a href="{{ session.id }}"><li>{{ session.title }}</li></a>
+			{% endfor %}
+		</ul>
+	</aside>
 {% endblock %}

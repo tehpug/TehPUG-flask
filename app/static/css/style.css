@@ -58,16 +58,16 @@ a:hover{
 	height: 100%;
 	min-height: 490px;
 }
-#map, #Tehpug, #sessions, #Flist, #upload, #login, #add_session, #C_sessions{
+#map, #Tehpug, #sessions, #Flist, #upload, #login, #add_session, #C_sessions, #session-bar, #ss, #add_news, #C_news, #news{
 	margin: 15px; 
 	background-color: #808080;
 	width: 601px;
 	border-radius: 10px;
 }
-#map h3, #Tehpug h3, #sessions h3, #Flist h3, #upload h3, #login h3, #add_session h3, #C_sessions h3{
+#map h3, #Tehpug h3, #sessions h3, #Flist h3, #upload h3, #login h3, #add_session h3, #C_sessions h3, #ss h3, #add_news h3, #C_news h3, #news h3{
 	padding: 10px 15px 0 0;
 }
-#map p,#Tehpug p, #login p, #form-session p, #btnsession{
+#map p,#Tehpug p, #login p, #form-session p, #ss p, #form-news p{
 	margin: 10px 15px 10px 10px;
 }
 #map img{
@@ -78,7 +78,11 @@ a:hover{
 	float: left;
 	margin: 0 15px 15px 70px;
 }
-#sessions li,#Flist li, #C_sessions li{
+#ss, #news{
+	float: left;
+	width: 80%
+}
+#sessions li,#Flist li, #C_sessions li, #C_news li, #news li{
 	background-color: #DDDDDD;
 	list-style: none;
 	margin: 10px 30px 10px 50px;
@@ -91,32 +95,32 @@ a:hover{
 	width: 269px;
 }
 /*--------------------login/CPanel and controls---------------------*/
-.Cpanel-bar{
+.Cpanel-bar, .session-bar, .news-bar{
 	background-color: #808080;
 	min-height: 490px;
 	width: 200px;
 	position: absolute;
 }
-.Cpanel-bar ul{
+.Cpanel-bar ul, .session-bar ul, .news-bar ul{
 	margin: 10px 0 0 0;
 }
-.Cpanel-bar li{
+.Cpanel-bar li, .session-bar li, .news-bar li{
 	background-color: #DDDDDD;
 	list-style: none;
 	margin: 0 10px 10px 10px;
 	border-radius: 7px;
 	padding: 3px;
 }
-#upload, #add_session{
+#upload, #add_session,#add_news{
 	width: 680px;
 	float: left;
 }
-#Flist, #C_sessions{
+#Flist, #C_sessions, #C_news{
 	float: left;
 	width: 400px;
 	padding-bottom: 10px;
 }
-#formup, #form-session{
+#formup, #form-session, #form-news{
 	margin:15px;
 }
 #Flist li, #Flist ul{

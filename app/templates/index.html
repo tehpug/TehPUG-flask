@@ -5,7 +5,7 @@
 		<h3>لیست جلسات اخیر</h3>
 		<ul>
 			{% for session in sessions %}
-				<li>{{ session.title }}</li>
+				<a href="sessions/{{ session.id }}"><li>{{ session.title }}</li></a>
 			{% endfor %}
 		</ul>
 		<br>

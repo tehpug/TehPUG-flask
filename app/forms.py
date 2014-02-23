@@ -11,3 +11,9 @@ class AddSessionForm(Form):
 	title = TextField('title', validators = [Required(), Length(min = 5, max = 100)])
 	description = TextAreaField('description', validators = [Length(min = 0, max = 4000)])
 	sound = TextField('sound')
+
+class AddNewsForm(Form):
+	title = TextField('title', validators = [Required(), Length(min = 5, max= 100)])
+	description = TextAreaField('description', validators = [Length(min = 0, max = 4000)])
+	
+		

@@ -32,3 +32,14 @@ class Session(db.Model):
 
 	def __repr__(self):
 		return '<Session %r>' % (self.title)
+
+class News(db.Model):
+	"""News info in Database"""
+	id = db.Column(db.Integer, primary_key = True)
+	title = db.Column(db.String(100), index = True)
+	description = db.Column(db.String(4000), index = True)
+	time = db.Column(db.DateTime)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+	def __repr__(self):
+			return '<News %r>' % (self.title)	

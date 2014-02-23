@@ -1,11 +1,11 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db, lm
-from forms import LoginForm, AddSessionForm
-from models import User, Session
+from forms import LoginForm, AddSessionForm, AddNewsForm
+from models import User, Session, News
 from hashlib import sha256
 import os
-
+from datetime import datetime
 ###-------------Control Panel and logins-----------###
 @lm.user_loader
 def load_user(id):
@@ -56,7 +56,17 @@ def cpanel_sessions():
 @app.route('/cpanel/news', methods = ['GET', 'POST', 'DELETE'])
 @login_required
 def cpanel_news():
-	return render_template('cpanel_news.html')
+	form = AddNewsForm()
+	if form.validate_on_submit():
+		news = News(
+			title = form.title.data,
+			description = form.description.data,
+			time = datetime.now(),
+			user_id = g.user.id)
+		db.session.add(news)
+		db.session.commit()
+	allnews = News.query.all()
+	return render_template('cpanel_news.html', form = form, allnews = allnews)
 
 @app.route('/cpanel/files', methods = ['GET', 'POST','DELETE'])
 @login_required
@@ -89,13 +99,21 @@ def index():
 def tehpug():
 	return render_template('tehpug.html')
 
-@app.route('/sessions')
-def sessions():
-	return render_template('sessions.html')
+@app.route('/sessions/', defaults = {'id': Session.query.all()[-1].id})
+@app.route('/sessions/<id>')
+def sessions(id):
+	sessions = Session.query.all()
+	ss = Session.query.get(int(id))
+	sessions.reverse()
+	return render_template('sessions.html', sessions = sessions, ss = ss)
 
-@app.route('/news')
-def news():
-	return render_template('news.html')
+@app.route('/news/', defaults = {'id': News.query.all()[-1].id})
+@app.route('/news/<id>',)
+def news(id):
+	allnews = News.query.all()
+	news = News.query.get(int(id))
+	allnews.reverse()
+	return render_template('news.html', allnews = allnews, news = news)
 
 @app.route('/list')
 def list():

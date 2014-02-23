@@ -1,4 +1,27 @@
 {% extends "cpanel.html" %}
 
 {% block controls %}
+	<div id="add_news">
+		<h3>افزودن خبر جدید</h3>
+		<form id="form-news" action="/cpanel/news" method="post" name="add-news">
+            {{ form.hidden_tag() }}
+			<p>
+				عنوان:
+				{{ form.title(size=70) }}
+			</p>
+			<p>
+				توضیحات:<br>
+				{{form.description(cols=75, rows=20)}}
+			</p>
+			<button id="btnnews" style="width: 50px; height: 20px;">ارسال</button>
+		</form>
+	</div>
+	<div id="C_news">
+		<h3>لیست اخبار</h3>
+		<ul>
+			{% for news in allnews %}
+				<a href="news/{{ news.id }}"><li>{{ news.title }}</li></a>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}

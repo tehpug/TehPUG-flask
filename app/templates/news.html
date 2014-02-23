@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block contents %}
-	<center><h1>متاسفانه صفحه ی مورد نظر شما موجود نمی باشد</h1></center>
+	<aside id="news">
+		<h3>{{ news.title }}</h3>
+		<p>{{ news.description }}</p>
+	</aside>
+	<aside class="news-bar">
+		<ul>
+			{% for news in allnews %}
+				<a href="{{ news.id }}"><li>{{ news.title }}</li></a>
+			{% endfor %}
+		</ul>
+	</aside>
 {% endblock %}
