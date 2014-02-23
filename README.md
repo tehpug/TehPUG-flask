@@ -1,4 +1,75 @@
 TehPUG
 ======
 
-TehPUG Website
+TehPUG(Tehran Python Users Group) Website with Flask
+
+A tree view of files
+====================
+
+|-- app
+|   |-- forms.py
+|   |-- __init__.py
+|   |-- models.py
+|   |-- static
+|   |   |-- css
+|   |   |   `-- style.css
+|   |   |-- fonts
+|   |   |   |-- FreeFarsi.ttf
+|   |   |   `-- Titr.ttf
+|   |   |-- img
+|   |   |   |-- favicon.ico
+|   |   |   |-- python-logo.png
+|   |   |   `-- tehpug-address.jpg
+|   |   `-- uploaded
+|   |-- templates
+|   |   |-- 404.html
+|   |   |-- base.html
+|   |   |-- cpanel.html
+|   |   |-- cpanel_news.html
+|   |   |-- cpanel_sessions.html
+|   |   |-- files.html
+|   |   |-- index.html
+|   |   |-- irc.html
+|   |   |-- list.html
+|   |   |-- login.html
+|   |   |-- news.html
+|   |   |-- sessions.html
+|   |   `-- tehpug.html
+|   `-- views.py
+|-- config.py
+|-- createDB.py
+|-- LICENSE
+|-- README.md
+|-- run.py
+|-- tmp
+`-- virtualenv.py
+
+Requirements
+============
+
+flask
+flask-login
+sqlalchemy
+flask-sqlalchemy
+flask-wtf
+
+How to use 
+==========
+
+first you have to install virtualenv
+
+$ python virtualenv flask
+
+then you should install the requirements this way
+
+$ flask/bin/pip install flask
+$ flask/bin/pip install flask-login
+$ flask/bin/pip install sqlalchemy
+$ flask/bin/pip install flask-sqlalchemy
+$ flask/bin/pip install flask-wtf
+
+How can I help?
+===============
+
+if you want to help this project you can look at the TODO.md to see if there is any task which you can handle it? or if you've any other idea let us know! Thanks
+
