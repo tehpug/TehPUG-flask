@@ -30,6 +30,6 @@ then you should install the requirements this way
 How can I help?
 ===============
 
-if you want to help this project you can look at the TODO.md to see if there is any task which you can handle it?
+if you want to help this project you can look at the [TODO list](https://github.com/tehpug/TehPUG/blob/master/TODO.md) to see if there is any task which you can handle it?
 or if you've any other idea let us know! Thanks
 
