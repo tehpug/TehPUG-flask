@@ -3,7 +3,11 @@
 {% block controls %}
 	<div id="add_news">
 		<h3>افزودن خبر جدید</h3>
+		{% if id %}
+		<form id="form-news" action="/cpanel/news/{{ id }}" method="post" name="add-news">
+		{% else %}
 		<form id="form-news" action="/cpanel/news" method="post" name="add-news">
+		{% endif %}
             {{ form.hidden_tag() }}
 			<p>
 				عنوان:
@@ -17,10 +21,28 @@
 		</form>
 	</div>
 	<div id="C_news">
+		<script type="text/javascript">
+			function makeHttpObject() {
+  				try {return new XMLHttpRequest();}
+  				catch (error) {}
+  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  				catch (error) {}
+ 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  				catch (error) {}
+
+  				throw new Error("Could not create HTTP request object.");
+			}
+			show(typeof(makeHttpObject()));
+			function req(id){
+				var request = makeHttpObject();
+				request.open("DELETE", "/cpanel/news/"+id, false);
+				request.send(null);
+			}
+		</script>
 		<h3>لیست اخبار</h3>
 		<ul>
 			{% for news in allnews %}
-				<a href="news/{{ news.id }}"><li>{{ news.title }}</li></a>
+				<li><a href="/cpanel/news/{{ news.id }}">{{ news.title }}</a> <button onclick="req({{ news.id }})">X</button></li>
 			{% endfor %}
 		</ul>
 	</div>

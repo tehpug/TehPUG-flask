@@ -1,5 +1,6 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
+from werkzeug import secure_filename
 from app import app, db, lm
 from forms import LoginForm, AddSessionForm, AddNewsForm
 from models import User, Session, News
@@ -17,32 +18,41 @@ def before_request():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
-	if g.user is not None and g.user.is_authenticated():
-		return redirect(url_for('cpanel'))
 	form = LoginForm()
 	if form.validate_on_submit():
-		session['remember_me'] = form.remember_me.data
 		user = User.query.filter_by(username = form.username.data).first()
 		if user:
 			if user.password == sha256(form.password.data).hexdigest():
-				remember_me = False
-    			if 'remember_me' in session:
-        			remember_me = session['remember_me']
-        			session.pop('remember_me', None)
-				login_user(user, remember = remember_me)
+				login_user(user, remember = form.remember_me.data)
+	if g.user is not None and g.user.is_authenticated():
+		return redirect(url_for('cpanel'))
 	return render_template('login.html', form = form)
-
 
 @app.route('/cpanel')
 @login_required
 def cpanel():
 	return render_template('cpanel.html')
 
-@app.route('/cpanel/sessions', methods = ['GET', 'POST', 'DELETE'])
+@app.route('/cpanel/sessions', methods = ['GET', 'POST'])
+@app.route('/cpanel/sessions/<id>', methods = ['GET', 'POST', 'DELETE'])
 @login_required
-def cpanel_sessions():
+def cpanel_sessions(id = None):
+	if request.method == 'DELETE' and id:
+		db.session.delete(Session.query.get(id))
+		db.session.commit()
 	form = AddSessionForm()
-	if form.validate_on_submit():
+	if request.method == 'GET' and id:
+		session = Session.query.get(int(id))
+		form.title.data = session.title
+		form.description.data = session.description
+	if request.method == 'POST' and id and form.validate_on_submit():
+		session = Session.query.get(int(id))
+		session.title = form.title.data
+		session.description = form.description.data
+		session.user_id = g.user.id
+		db.session.add(session)
+		db.session.commit()
+	if not id and form.validate_on_submit():
 		session = Session(
 			title = form.title.data,
 			description = form.description.data,
@@ -51,13 +61,30 @@ def cpanel_sessions():
 		db.session.add(session)
 		db.session.commit()
 	sessions = Session.query.all()
-	return render_template('cpanel_sessions.html', form = form, sessions = sessions)
+	files = os.listdir('app/static/uploaded')
+	return render_template('cpanel_sessions.html', form = form, sessions = sessions, files = files, id = id)
 
-@app.route('/cpanel/news', methods = ['GET', 'POST', 'DELETE'])
+@app.route('/cpanel/news', methods = ['GET', 'POST'])
+@app.route('/cpanel/news/<id>', methods = ['GET', 'POST', 'DELETE'])
 @login_required
-def cpanel_news():
+def cpanel_news(id = None):
+	if request.method == 'DELETE' and id:
+		db.session.delete(News.query.get(id))
+		db.session.commit()
 	form = AddNewsForm()
-	if form.validate_on_submit():
+	if request.method == 'GET' and id:
+		news = News.query.get(int(id))
+		form.title.data = news.title
+		form.description.data = news.description
+	if request.method == 'POST' and id and form.validate_on_submit():
+		news = News.query.get(int(id))
+		news.title = form.title.data
+		news.description = form.description.data
+		news.time = datetime.now()
+		news.user_id = g.user.id
+		db.session.add(news)
+		db.session.commit()
+	if not id and form.validate_on_submit():
 		news = News(
 			title = form.title.data,
 			description = form.description.data,
@@ -66,18 +93,18 @@ def cpanel_news():
 		db.session.add(news)
 		db.session.commit()
 	allnews = News.query.all()
-	return render_template('cpanel_news.html', form = form, allnews = allnews)
+	return render_template('cpanel_news.html', form = form, allnews = allnews, id = id)
 
-@app.route('/cpanel/files', methods = ['GET', 'POST','DELETE'])
+@app.route('/cpanel/files', methods = ['GET', 'POST'])
+@app.route('/cpanel/files/<name>', methods = ['GET', 'DELETE'])
 @login_required
-def files():
+def files(name = None):
 	if request.method == 'POST':
 		file = request.files['file']
 		filename = secure_filename(file.filename)
 		file.save(os.path.join('app/static/uploaded',filename))
-	if request.method == 'DELETE':
-		pass
-		#Delete the selected file
+	if request.method == 'DELETE' and name:
+		os.remove('app/static/uploaded/'+name)
 	files = os.listdir('app/static/uploaded')
 	return render_template('files.html', files = files)
 
@@ -99,21 +126,25 @@ def index():
 def tehpug():
 	return render_template('tehpug.html')
 
-@app.route('/sessions/', defaults = {'id': Session.query.all()[-1].id})
+@app.route('/sessions/')
 @app.route('/sessions/<id>')
-def sessions(id):
+def sessions(id = None):
 	sessions = Session.query.all()
-	ss = Session.query.get(int(id))
 	sessions.reverse()
-	return render_template('sessions.html', sessions = sessions, ss = ss)
+	if id:
+		ss = Session.query.get(int(id))
+		return render_template('sessions.html', sessions = sessions, ss = ss)
+	return render_template('sessions.html', sessions = sessions)
 
-@app.route('/news/', defaults = {'id': News.query.all()[-1].id})
+@app.route('/news/')
 @app.route('/news/<id>',)
-def news(id):
+def news(id = None):
 	allnews = News.query.all()
-	news = News.query.get(int(id))
 	allnews.reverse()
-	return render_template('news.html', allnews = allnews, news = news)
+	if id:
+		news = News.query.get(int(id))
+		return render_template('news.html', allnews = allnews, news = news)
+	return render_template('news.html', allnews = allnews)
 
 @app.route('/list')
 def list():

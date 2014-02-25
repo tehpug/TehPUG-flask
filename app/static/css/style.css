@@ -67,7 +67,7 @@ a:hover{
 #map h3, #Tehpug h3, #sessions h3, #Flist h3, #upload h3, #login h3, #add_session h3, #C_sessions h3, #ss h3, #add_news h3, #C_news h3, #news h3{
 	padding: 10px 15px 0 0;
 }
-#map p,#Tehpug p, #login p, #form-session p, #ss p, #form-news p{
+#map p,#Tehpug p, #login p, #form-session p, #ss p, #form-news p, #news p{
 	margin: 10px 15px 10px 10px;
 }
 #map img{

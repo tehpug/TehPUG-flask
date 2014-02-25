@@ -3,7 +3,11 @@
 {% block controls %}
 	<div id="add_session">
 		<h3>افزودن جلسه جدید</h3>
+		{% if id %}
+		<form id="form-session" action="/cpanel/sessions/{{ id }}" method="post" name="add-session">
+		{% else %}
 		<form id="form-session" action="/cpanel/sessions" method="post" name="add-session">
+		{% endif %}
             {{ form.hidden_tag() }}
 			<p>
 				عنوان:
@@ -14,16 +18,39 @@
 				{{form.description(cols=75, rows=20)}}
 			</p>
 			<p>
-				<!--selecting sound file for session-->
+				<select>
+					{% for file in files %}
+						<option value="{{ file }}">{{ file }}</option>
+					{% endfor %}
+				</select>
 			</p>
 			<button id="btnsession" style="width: 50px; height: 20px;">ارسال</button>
 		</form>
 	</div>
 	<div id="C_sessions">
+		<script type="text/javascript">
+			function makeHttpObject() {
+  				try {return new XMLHttpRequest();}
+  				catch (error) {}
+  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  				catch (error) {}
+ 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  				catch (error) {}
+
+  				throw new Error("Could not create HTTP request object.");
+			}
+			show(typeof(makeHttpObject()));
+			function req(id){
+				var request = makeHttpObject();
+				request.open("DELETE", "/cpanel/sessions/"+id, false);
+				request.send(null);
+			}
+		</script>
 		<h3>لیست جلسات</h3>
 		<ul>
 			{% for session in sessions %}
-				<a href="sessions/{{ session.id }}"><li>{{ session.title }}</li></a>
+					<li><a href="/cpanel/sessions/{{ session.id }}">{{ session.title }}</a> <button onclick="req({{ session.id }})">X</button>
+				</form>
 			{% endfor %}
 		</ul>
 	</div>

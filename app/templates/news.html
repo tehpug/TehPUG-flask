@@ -2,8 +2,10 @@
 
 {% block contents %}
 	<aside id="news">
-		<h3>{{ news.title }}</h3>
-		<p>{{ news.description }}</p>
+		{% if news %}
+			<h3>{{ news.title }}</h3>
+			<p>{{ news.description }}</p>
+		{% endif %}
 	</aside>
 	<aside class="news-bar">
 		<ul>
