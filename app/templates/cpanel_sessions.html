@@ -18,11 +18,7 @@
 				{{form.description(cols=75, rows=20)}}
 			</p>
 			<p>
-				<select>
-					{% for file in files %}
-						<option value="{{ file }}">{{ file }}</option>
-					{% endfor %}
-				</select>
+				{{ form.sound }}
 			</p>
 			<button id="btnsession" style="width: 50px; height: 20px;">ارسال</button>
 		</form>

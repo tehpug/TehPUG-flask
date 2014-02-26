@@ -53,6 +53,7 @@ def cpanel_sessions(id = None):
 		db.session.add(session)
 		db.session.commit()
 	if not id and form.validate_on_submit():
+		print form.sound.data
 		session = Session(
 			title = form.title.data,
 			description = form.description.data,
@@ -133,7 +134,8 @@ def sessions(id = None):
 	sessions.reverse()
 	if id:
 		ss = Session.query.get(int(id))
-		return render_template('sessions.html', sessions = sessions, ss = ss)
+		user = User.query.get(ss.user_id)
+		return render_template('sessions.html', sessions = sessions, ss = ss, user = user)
 	return render_template('sessions.html', sessions = sessions)
 
 @app.route('/news/')

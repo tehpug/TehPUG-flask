@@ -123,6 +123,6 @@ a:hover{
 #formup, #form-session, #form-news{
 	margin:15px;
 }
-#Flist li, #Flist ul{
+#Flist li, #Flist ul, option{
 	direction: ltr;
 }
