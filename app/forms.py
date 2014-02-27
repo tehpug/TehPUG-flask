@@ -3,11 +3,6 @@ from wtforms import TextField, BooleanField, PasswordField, TextAreaField, Selec
 from wtforms.validators import Required, Length
 import os
 
-sounds = []
-files = os.listdir('app/static/uploaded')
-for f in files:
-	sounds += [(f,f)]
-
 class LoginForm(Form):
     username = TextField('username', validators = [Required(), Length(min = 5, max = 50)])
     password = PasswordField('password', validators = [Required()])
@@ -16,7 +11,7 @@ class LoginForm(Form):
 class AddSessionForm(Form):
 	title = TextField('title', validators = [Required(), Length(min = 5, max = 100)])
 	description = TextAreaField('description', validators = [Length(min = 0, max = 4000)])
-	sound = SelectField('sound',choices = sounds)
+	sound = SelectField('sound',choices = [])
 
 class AddNewsForm(Form):
 	title = TextField('title', validators = [Required(), Length(min = 5, max= 100)])

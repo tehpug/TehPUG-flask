@@ -41,14 +41,21 @@ def cpanel_sessions(id = None):
 		db.session.delete(Session.query.get(id))
 		db.session.commit()
 	form = AddSessionForm()
+	sounds = []
+	files = os.listdir('app/static/uploaded')
+	for f in files:
+		sounds += [(f,f)]
+	form.sound.choices = sounds
 	if request.method == 'GET' and id:
 		session = Session.query.get(int(id))
 		form.title.data = session.title
 		form.description.data = session.description
+		form.sound.data = session.sound
 	if request.method == 'POST' and id and form.validate_on_submit():
 		session = Session.query.get(int(id))
 		session.title = form.title.data
 		session.description = form.description.data
+		session.sound = form.sound.data
 		session.user_id = g.user.id
 		db.session.add(session)
 		db.session.commit()
