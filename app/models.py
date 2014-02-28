@@ -6,6 +6,7 @@ class User(db.Model):
 	username = db.Column(db.String(50), index = True, unique = True)
 	password = db.Column(db.String(64))
 	email = db.Column(db.String(100), index = True, unique = True)
+	admin = db.Column(db.Boolean, default = False)
 
 	def is_authenticated(self):
 		return True

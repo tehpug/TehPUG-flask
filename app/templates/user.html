@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block contents %}
+	<aside id="profile">
+		{% if not user %}
+			<h3>چنین کاربری موجود نیست. لطفا دوباره نام کاربری را بررسی نمایید</h3>
+		{%endif%}
+		<p>
+			{{ user.username }} <br>
+		</p>
+		<p>
+			<a href="mailto:{{ user.email }}">{{ user.email }}</a>
+		</p>
+	</aside>
+	<aside class="user-menu">
+		<ul>
+			<li><a href="/logout">خروج</a></li>
+		</ul>
+	</aside>
+{% endblock %}

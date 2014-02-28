@@ -2,12 +2,12 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from werkzeug import secure_filename
 from app import app, db, lm
-from forms import LoginForm, AddSessionForm, AddNewsForm
+from forms import LoginForm, AddSessionForm, AddNewsForm, RegisterForm 
 from models import User, Session, News
 from hashlib import sha256
 import os
 from datetime import datetime
-###-------------Control Panel and logins-----------###
+###-------------Register and logins--------------###
 @lm.user_loader
 def load_user(id):
 	return User.query.get(int(id))
@@ -16,105 +16,33 @@ def load_user(id):
 def before_request():
 	g.user = current_user
 
+@app.route('/register', methods = ['GET', 'POST'])
+def register():
+	form = RegisterForm()
+	if form.validate_on_submit():
+		user = User(
+			username = form.username.data, 
+			password = sha256(form.password.data).hexdigest(),
+			email = form.email.data)
+		db.session.add(user)
+		db.session.commit()
+		#verification email and login
+		redirect(url_for('index'))
+	return render_template('register.html', form = form)
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	form = LoginForm()
+	print form.validate_on_submit()
 	if form.validate_on_submit():
 		user = User.query.filter_by(username = form.username.data).first()
 		if user:
 			if user.password == sha256(form.password.data).hexdigest():
 				login_user(user, remember = form.remember_me.data)
-	if g.user is not None and g.user.is_authenticated():
+	if g.user is not None and g.user.is_authenticated() and g.user.admin:
 		return redirect(url_for('cpanel'))
 	return render_template('login.html', form = form)
 
-@app.route('/cpanel')
-@login_required
-def cpanel():
-	return render_template('cpanel.html')
-
-@app.route('/cpanel/sessions', methods = ['GET', 'POST'])
-@app.route('/cpanel/sessions/<id>', methods = ['GET', 'POST', 'DELETE'])
-@login_required
-def cpanel_sessions(id = None):
-	if request.method == 'DELETE' and id:
-		db.session.delete(Session.query.get(id))
-		db.session.commit()
-	form = AddSessionForm()
-	sounds = []
-	files = os.listdir('app/static/uploaded')
-	for f in files:
-		sounds += [(f,f)]
-	form.sound.choices = sounds
-	if request.method == 'GET' and id:
-		session = Session.query.get(int(id))
-		form.title.data = session.title
-		form.description.data = session.description
-		form.sound.data = session.sound
-	if request.method == 'POST' and id and form.validate_on_submit():
-		session = Session.query.get(int(id))
-		session.title = form.title.data
-		session.description = form.description.data
-		session.sound = form.sound.data
-		session.user_id = g.user.id
-		db.session.add(session)
-		db.session.commit()
-	if not id and form.validate_on_submit():
-		print form.sound.data
-		session = Session(
-			title = form.title.data,
-			description = form.description.data,
-			sound = form.sound.data,
-			user_id = g.user.id)
-		db.session.add(session)
-		db.session.commit()
-	sessions = Session.query.all()
-	files = os.listdir('app/static/uploaded')
-	return render_template('cpanel_sessions.html', form = form, sessions = sessions, files = files, id = id)
-
-@app.route('/cpanel/news', methods = ['GET', 'POST'])
-@app.route('/cpanel/news/<id>', methods = ['GET', 'POST', 'DELETE'])
-@login_required
-def cpanel_news(id = None):
-	if request.method == 'DELETE' and id:
-		db.session.delete(News.query.get(id))
-		db.session.commit()
-	form = AddNewsForm()
-	if request.method == 'GET' and id:
-		news = News.query.get(int(id))
-		form.title.data = news.title
-		form.description.data = news.description
-	if request.method == 'POST' and id and form.validate_on_submit():
-		news = News.query.get(int(id))
-		news.title = form.title.data
-		news.description = form.description.data
-		news.time = datetime.now()
-		news.user_id = g.user.id
-		db.session.add(news)
-		db.session.commit()
-	if not id and form.validate_on_submit():
-		news = News(
-			title = form.title.data,
-			description = form.description.data,
-			time = datetime.now(),
-			user_id = g.user.id)
-		db.session.add(news)
-		db.session.commit()
-	allnews = News.query.all()
-	return render_template('cpanel_news.html', form = form, allnews = allnews, id = id)
-
-@app.route('/cpanel/files', methods = ['GET', 'POST'])
-@app.route('/cpanel/files/<name>', methods = ['GET', 'DELETE'])
-@login_required
-def files(name = None):
-	if request.method == 'POST':
-		file = request.files['file']
-		filename = secure_filename(file.filename)
-		file.save(os.path.join('app/static/uploaded',filename))
-	if request.method == 'DELETE' and name:
-		os.remove('app/static/uploaded/'+name)
-	files = os.listdir('app/static/uploaded')
-	return render_template('files.html', files = files)
 
 @app.route('/logout')
 @login_required
@@ -122,6 +50,121 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
+###-------------------User Profile-----------------###
+@app.route('/user/<username>')
+@login_required
+def function(username):
+	user = User.query.filter_by(username = username).first()
+	return render_template('user.html', user = user)
+
+###----------------------Cpanel--------------------###
+@app.route('/cpanel')
+@login_required
+def cpanel():
+	if g.user.admin:
+		return render_template('cpanel.html')
+	else:
+		return render_template('access_err.html')
+
+@app.route('/cpanel/sessions', methods = ['GET', 'POST'])
+@app.route('/cpanel/sessions/<id>', methods = ['GET', 'POST', 'DELETE'])
+@login_required
+def cpanel_sessions(id = None):
+	if g.user.admin:
+		if request.method == 'DELETE' and id:
+			db.session.delete(Session.query.get(id))
+			db.session.commit()
+		form = AddSessionForm()
+		sounds = []
+		files = os.listdir('app/static/uploaded')
+		for f in files:
+			sounds += [(f,f)]
+		form.sound.choices = sounds
+		if request.method == 'GET' and id:
+			session = Session.query.get(int(id))
+			form.title.data = session.title
+			form.description.data = session.description
+			form.sound.data = session.sound
+		if request.method == 'POST' and id and form.validate_on_submit():
+			session = Session.query.get(int(id))
+			session.title = form.title.data
+			session.description = form.description.data
+			session.sound = form.sound.data
+			session.user_id = g.user.id
+			db.session.add(session)
+			db.session.commit()
+		if not id and form.validate_on_submit():
+			print form.sound.data
+			session = Session(
+				title = form.title.data,
+				description = form.description.data,
+				sound = form.sound.data,
+				user_id = g.user.id)
+			db.session.add(session)
+			db.session.commit()
+		sessions = Session.query.all()
+		files = os.listdir('app/static/uploaded')
+		return render_template('cpanel_sessions.html', form = form, sessions = sessions, files = files, id = id)
+	else:
+		return render_template('access_err.html')
+
+@app.route('/cpanel/news', methods = ['GET', 'POST'])
+@app.route('/cpanel/news/<id>', methods = ['GET', 'POST', 'DELETE'])
+@login_required
+def cpanel_news(id = None):
+	if g.user.admin:
+		if request.method == 'DELETE' and id:
+			db.session.delete(News.query.get(id))
+			db.session.commit()
+		form = AddNewsForm()
+		if request.method == 'GET' and id:
+			news = News.query.get(int(id))
+			form.title.data = news.title
+			form.description.data = news.description
+		if request.method == 'POST' and id and form.validate_on_submit():
+			news = News.query.get(int(id))
+			news.title = form.title.data
+			news.description = form.description.data
+			news.time = datetime.now()
+			news.user_id = g.user.id
+			db.session.add(news)
+			db.session.commit()
+		if not id and form.validate_on_submit():
+			news = News(
+				title = form.title.data,
+				description = form.description.data,
+				time = datetime.now(),
+				user_id = g.user.id)
+			db.session.add(news)
+			db.session.commit()
+		allnews = News.query.all()
+		return render_template('cpanel_news.html', form = form, allnews = allnews, id = id)
+	else:
+		return render_template('access_err.html')
+
+@app.route('/cpanel/files', methods = ['GET', 'POST'])
+@app.route('/cpanel/files/<name>', methods = ['GET', 'DELETE'])
+@login_required
+def files(name = None):
+	if g.user.admin:
+		if request.method == 'POST':
+			file = request.files['file']
+			filename = secure_filename(file.filename)
+			file.save(os.path.join('app/static/uploaded',filename))
+		if request.method == 'DELETE' and name:
+			os.remove('app/static/uploaded/'+name)
+		files = os.listdir('app/static/uploaded')
+		return render_template('files.html', files = files)
+	else:
+		return render_template('access_err.html')
+
+@app.route('/cpanel/users', methods = ['GET', 'POST'])
+@login_required
+def users():
+	if g.user.admin:
+		return render_template('cpanel_users.html')
+	else:
+		return render_template('access_err.html')
 ###-------------------Base and Menu----------------###
 @app.route('/')
 @app.route('/index')

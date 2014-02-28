@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block contents %}
+	<div id="register">
+		<h3>ورود</h3>
+		<form action="/register" method="post" name="login">
+    	{{ form.hidden_tag() }}
+    	<p>
+        	نام کاربری:<br>
+        	{{ form.username(size=26) }}<br>
+    	</p>
+    	<p>
+        	گذرواژه:<br>
+        	{{ form.password(size=26) }}<br>
+    	</p>
+    	<p>
+    		ایمیل:<br>
+    		{{ form.email(size=26) }}
+    	</p>
+    	<p><input type="submit" value="ثبت نام" style="width: 50px; height: 20px;"></p>
+		</form>
+	</div>
+{% endblock %}
