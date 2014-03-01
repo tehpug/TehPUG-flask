@@ -67,6 +67,7 @@ then you should install the requirements this way
     $ flask/bin/pip install sqlalchemy
     $ flask/bin/pip install flask-sqlalchemy
     $ flask/bin/pip install flask-wtf
+    $ flask/bin/pip install sqlalchemy-migrate
     
 then you should create a Database for the website by executing createDB.py
 

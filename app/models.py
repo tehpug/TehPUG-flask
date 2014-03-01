@@ -1,4 +1,5 @@
 from app import db
+from hashlib import md5
 
 class User(db.Model):
 	"""Users info in database"""
@@ -6,7 +7,12 @@ class User(db.Model):
 	username = db.Column(db.String(50), index = True, unique = True)
 	password = db.Column(db.String(64))
 	email = db.Column(db.String(100), index = True, unique = True)
+	website = db.Column(db.String(50))
+	bio = db.Column(db.String(256))
 	admin = db.Column(db.Boolean, default = False)
+
+	def avatar(self, size):
+		return 'http://www.gravatar.com/avatar/' + md5(self.email).hexdigest() + '?mm&s=' + str(size) +'&d=retro'
 
 	def is_authenticated(self):
 		return True
@@ -43,4 +49,15 @@ class News(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	def __repr__(self):
-			return '<News %r>' % (self.title)	
+		return '<News %r>' % (self.title)
+
+class Comments(db.Model):
+	"""Comments for News in Database"""
+	id = db.Column(db.Integer, primary_key = True)
+	comment = db.Column(db.String(1000), index = True)
+	time = db.Column(db.DateTime)
+	news_id = db.Column(db.Integer, db.ForeignKey('news.id'))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+	def __repr__(self):
+		return '<comment %r>' % (self.comment)

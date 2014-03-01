@@ -40,7 +40,9 @@ def login():
 			if user.password == sha256(form.password.data).hexdigest():
 				login_user(user, remember = form.remember_me.data)
 	if g.user is not None and g.user.is_authenticated() and g.user.admin:
-		return redirect(url_for('cpanel'))
+		return redirect(request.args.get('next') or url_for('cpanel'))
+	if g.user is not None and g.user.is_authenticated() and  not g.user.admin:
+		return redirect(request.args.get('next') or url_for('user/'+g.user.username))
 	return render_template('login.html', form = form)
 
 
@@ -51,11 +53,14 @@ def logout():
 	return redirect(url_for('index'))
 
 ###-------------------User Profile-----------------###
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods = ['GET', 'POST'])
 @login_required
 def function(username):
 	user = User.query.filter_by(username = username).first()
-	return render_template('user.html', user = user)
+	if g.user.username == username:
+		return render_template('Profile.html', user = user)
+	else:
+		return render_template('user.html', user = user)
 
 ###----------------------Cpanel--------------------###
 @app.route('/cpanel')
@@ -195,7 +200,8 @@ def news(id = None):
 	allnews.reverse()
 	if id:
 		news = News.query.get(int(id))
-		return render_template('news.html', allnews = allnews, news = news)
+		comments = Comments.query.filter_by(news_id = int(id))
+		return render_template('news.html', allnews = allnews, news = news, comments = comments)
 	return render_template('news.html', allnews = allnews)
 
 @app.route('/list')

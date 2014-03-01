@@ -5,3 +5,4 @@
 ##Back-End Tasks:
 
     1.add database migration feature
+    2.handle errors
