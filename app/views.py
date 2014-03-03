@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from werkzeug import secure_filename
 from app import app, db, lm
-from forms import LoginForm, AddSessionForm, AddNewsForm, RegisterForm 
+from forms import LoginForm, AddSessionForm, AddNewsForm, RegisterForm, EditProfileForm
 from models import User, Session, News
 from hashlib import sha256
 import os
@@ -26,23 +26,22 @@ def register():
 			email = form.email.data)
 		db.session.add(user)
 		db.session.commit()
-		#verification email and login
-		redirect(url_for('index'))
+		return redirect(request.args.get('next') or url_for('login'))
 	return render_template('register.html', form = form)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	form = LoginForm()
-	print form.validate_on_submit()
 	if form.validate_on_submit():
 		user = User.query.filter_by(username = form.username.data).first()
+		print user.username
 		if user:
 			if user.password == sha256(form.password.data).hexdigest():
 				login_user(user, remember = form.remember_me.data)
 	if g.user is not None and g.user.is_authenticated() and g.user.admin:
 		return redirect(request.args.get('next') or url_for('cpanel'))
 	if g.user is not None and g.user.is_authenticated() and  not g.user.admin:
-		return redirect(request.args.get('next') or url_for('user/'+g.user.username))
+		return redirect(request.args.get('next') or url_for('cpanel'))
 	return render_template('login.html', form = form)
 
 
@@ -58,7 +57,17 @@ def logout():
 def function(username):
 	user = User.query.filter_by(username = username).first()
 	if g.user.username == username:
-		return render_template('Profile.html', user = user)
+		form = EditProfileForm()
+		if request.method == 'POST':
+			user.email = form.email.data
+			user.website = form.website.data
+			user.bio = form.bio.data
+			db.session.add(user)
+			db.session.commit()
+		form.email.data = user.email
+		form.website.data = user.website
+		form.bio.data = user.bio
+		return render_template('profile.html', user = user, form = form)
 	else:
 		return render_template('user.html', user = user)
 
