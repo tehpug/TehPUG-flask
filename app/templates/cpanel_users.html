@@ -1,9 +1,59 @@
 {% extends "cpanel.html" %}
 
 {% block controls %}
-	<div>
-		<h3>مدیریت کاربران</h3>
+	<div id="add_user">
+		<h3>افزودن کاربر جدید</h3>
+		{% for error in form.errors.values() %}
+		<p>{{error}}</p>
+		{% endfor %}
+		{% if id %}
+		<form id="form-user" action="/cpanel/users/{{ id }}" method="post" name="add-user">
+		{% else %}
+		<form id="form-user" action="/cpanel/users" method="post" name="add-user">
+		{% endif %}
+            {{ form.hidden_tag() }}
+			<p>
+        	نام کاربری:<br>
+        	{{ form.username(size=26) }}<br>
+    		</p>
+			<p>
+        	گذرواژه:<br>
+        	{{ form.password(size=26) }}<br>
+    		</p>
+    		<p>
+    		ایمیل:<br>
+    		{{ form.email(size=26) }}
+    		</p>
+    		<p>
+				{{ form.admin }}
+			</p>
+			<button id="btnuser" style="width: 50px; height: 20px;">ارسال</button>
+		</form>
 	</div>
-	<div id="C_users">
+	<div id="C_user">
+		<script type="text/javascript">
+			function makeHttpObject() {
+  				try {return new XMLHttpRequest();}
+  				catch (error) {}
+  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  				catch (error) {}
+ 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  				catch (error) {}
+
+  				throw new Error("Could not create HTTP request object.");
+			}
+			show(typeof(makeHttpObject()));
+			function req(id){
+				var request = makeHttpObject();
+				request.open("DELETE", "/cpanel/users/"+id, false);
+				request.send(null);
+			}
+		</script>
+		<h3>لیست کاربران</h3>
+		<ul>
+			{% for user in alluser %}
+				<li><a href="/cpanel/users/{{ user.id }}">{{ user.username }}</a> <button onclick="req({{ user.id }})">X</button></li>
+			{% endfor %}
+		</ul>
 	</div>
 {% endblock %}

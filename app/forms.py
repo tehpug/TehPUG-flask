@@ -7,6 +7,7 @@ class RegisterForm(Form):
 	username = TextField('username', validators = [Required(), Length(min = 4, max = 50)])
 	password = PasswordField('password', validators = [Required(), Length(min = 4, max = 50)])
 	email = TextField('email', validators = [Required(), Length(min = 6, max = 50), email()])
+	admin = SelectField('sound',choices = [('No','No'), ('Yes','Yes')])
 
 class LoginForm(Form):
     username = TextField('username', validators = [Required(), Length(min = 4, max = 50)])

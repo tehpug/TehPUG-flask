@@ -173,10 +173,49 @@ def files(name = None):
 		return render_template('access_err.html')
 
 @app.route('/cpanel/users', methods = ['GET', 'POST'])
+@app.route('/cpanel/users/<id>', methods = ['GET', 'POST', 'DELETE'])
 @login_required
-def users():
+def users(id = None):
 	if g.user.admin:
-		return render_template('cpanel_users.html')
+		if request.method == 'DELETE' and id:
+			db.session.delete(User.query.get(id))
+			db.session.commit()
+		form = RegisterForm()
+		if request.method == 'GET' and id:
+			user = User.query.get(int(id))
+			if user.admin:
+				role = 'Yes'
+			else:
+				role = 'No'
+			form.username.data = user.username
+			form.email.data = user.email
+			form.admin.data = role
+		if request.method == 'POST' and id and form.validate_on_submit():
+			if form.admin.data == 'Yes':
+				role = True
+			elif form.admin.data == 'No':
+				role = False
+			user = User.query.get(int(id))
+			user.username = form.username.data
+			user.password = form.password.data
+			user.email = form.email.data
+			user.admin = role
+			db.session.add(user)
+			db.session.commit()
+		if not id and form.validate_on_submit():
+			if form.admin.data == 'Yes':
+				role = True
+			elif form.admin.data == 'No':
+				role = False
+			user = User(
+			username = form.username.data, 
+			password = sha256(form.password.data).hexdigest(),
+			email = form.email.data,
+			admin = role)
+			db.session.add(user)
+			db.session.commit()
+		alluser = User.query.all()
+		return render_template('cpanel_users.html', form = form, alluser = alluser)
 	else:
 		return render_template('access_err.html')
 ###-------------------Base and Menu----------------###
