@@ -160,11 +160,13 @@ def cpanel_news(id = None):
 @app.route('/cpanel/files/<name>', methods = ['GET', 'DELETE'])
 @login_required
 def files(name = None):
+	ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'ogg', 'mp3', 'mp4', 'flv'])
 	if g.user.admin:
 		if request.method == 'POST':
 			file = request.files['file']
-			filename = secure_filename(file.filename)
-			file.save(os.path.join('app/static/uploaded',filename))
+			if file and '.' in file.filename and file.filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS:
+				filename = secure_filename(file.filename)
+				file.save(os.path.join('app/static/uploaded',filename))
 		if request.method == 'DELETE' and name:
 			os.remove('app/static/uploaded/'+name)
 		files = os.listdir('app/static/uploaded')
