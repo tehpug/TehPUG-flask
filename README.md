@@ -58,16 +58,11 @@ How to use
 
 first you have to install virtualenv
 
-    $ python virtualenv flask
+    $ python virtualenv tehpug
 
 then you should install the requirements this way
 
-    $ flask/bin/pip install flask
-    $ flask/bin/pip install flask-login
-    $ flask/bin/pip install sqlalchemy
-    $ flask/bin/pip install flask-sqlalchemy
-    $ flask/bin/pip install flask-wtf
-    $ flask/bin/pip install sqlalchemy-migrate
+    $ pip install -r requirements.txt
     
 then you should create a Database for the website by executing createDB.py
 
