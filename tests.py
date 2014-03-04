@@ -1,9 +1,9 @@
-#!flask/bin/python
+#!/usr/bin/env python
 
 import unittest
 
 class TestCase(unittest.TestCase):
-	
+
 	def setUp(self):
 		pass
 
@@ -21,6 +21,6 @@ class TestCase(unittest.TestCase):
 
 	def test_news(self):
 		pass
-		
+
 if __name__ == '__main__':
 	unittest.main()
