@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Tehran Python Users Group</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<link rel="shortcut icon" href="/static/img/favicon.ico">
+	</head>
+	<body>
+		<div class = "Header">
+			<ul class = "Menu">
+				<li><a href="/index">خانه</a></li>
+				<li><a href="/tehpug">تهران پاگ</a></li>
+				<li><a href="/sessions">گزارش جلسات</a></li>
+				<li><a href="/news">آرشیو خبری</a></li>
+				<li><a href="/list">لیست پستی</a></li>
+				<li><a href="/irc">گفتگوی زنده</a></li>
+			</ul>
+			<a href="/index"><img id = "Himg" src="/static/img/python-logo.png"></a>
+	</div>
+	<div class = "Content">
+		{% block contents %}
+		{% endblock %}
+	</div>
+	<footer>
+	</footer>
+	</body>
+</html>

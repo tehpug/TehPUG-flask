@@ -1,27 +1,106 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Tehran Python Users Group</title>
-		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-		<link rel="shortcut icon" href="/static/img/favicon.ico">
-	</head>
-	<body>
-		<div class = "Header">
-			<ul class = "Menu">
-				<li><a href="/index">خانه</a></li>
-				<li><a href="/tehpug">تهران پاگ</a></li>
-				<li><a href="/sessions">گزارش جلسات</a></li>
-				<li><a href="/news">آرشیو خبری</a></li>
-				<li><a href="/list">لیست پستی</a></li>
-				<li><a href="/irc">گفتگوی زنده</a></li>
-			</ul>
-			<a href="/index"><img id = "Himg" src="/static/img/python-logo.png"></a>
-    	</div>
-    	<div class = "Content">
-    		{% block contents %}
-    		{% endblock %}
-    	</div>
-    	<footer>
-    	</footer>
-	</body>
+    <meta charset="UTF-8">
+
+    <title>TehPUG</title>
+
+    <meta name="description" content="TehPUG Tehran Python users group">
+    <meta name="author" content="Mehdy Khoshnoody, Keyvan Hedayati">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="/static/favicon.png">
+
+    <link href="/static/bootstrap/bidi/css/bootstrap.rtl.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/static/css/bidi/style.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    {% block extrahead %}
+    {% endblock %}
+  </head>
+  <body>
+  {% block body %}
+    <div class="navbar">
+      <div class="navbar-inner">
+	<div class="container" id="topmenu">
+	  <div class="row">
+		<div class="span12">
+	      <a class="brand" href="/"><b>پاگ تهران</b></a>
+	      <ul class="nav">
+		<li><a href="/sessions">گزارش جلسات</a></li>
+		<li><a href="/list">لیست پستی</a></li>
+		<li><a href="https://github.com/tehpug">پروژه‌ها</a></li>
+		<li><a href="/faq/">سوالات متداول</a></li>
+		<li><a href="http://webchat.freenode.net/?channels=python-ir&uio=d4" target="_blank">چت آنلاین</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    {% block header %}
+
+    {% endblock header %}
+
+    <div class="container maincontainer">
+    {% block contents %}
+
+    {% endblock %}
+    </div>
+
+    <footer>
+      <div class="container">
+	<div class="row">
+	  <div class="span4 vspan4">
+	    <div class="center span3">
+	      <h3 class="ftitle">اجتماع‌های دیگر</h3>
+	      <ul class="other">
+		<li><a href="http://tehlug.org/">تهران لاگ</a></li>
+		<li><a href="http://karajlug.org/">کرج لاگ</a></li>
+		<li><a href="http://www.isfahanlug.org/">اصفهان لاگ</li>
+		<li><a href="http://www.zanjanlug.org/">زنجان لاگ</a></li>
+		<li><a href="http://www.mashhadlug.org/">مشهد لاگ</a></li>
+		<li><a href="http://www.gullug.org/">گیلان لاگ</a></li>
+		<li><a href="http://khuzestanlug.ir/">خوزستان لاگ</a></li>
+		<li><a href="http://tabrix.org">تبریز لاگ</a></li>
+		<li><a href="http://klug.ir">کرمان لاگ</a></li>
+		<li><a href="http://www.yazdlug.com/">یزد لاگ</a></li>
+		<li><a href="http://bulug.ir/">بوشهر لاگ</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	  <div class="span4 vspan4">
+	    <div class="center span3">
+	      <h3 class="ftitle">لینک‌های مفید:</h3>
+	      <ul>
+		<li><a href="http://k1-hedayati.github.io/python-the-right-way/">Python The Right Way</a></li>
+		<li><a href="http://pysocial.com/">گردهمایی پایتونی ها</a></li>
+		<li><a href="http://www.linuxmag.ir/">لینوکس‌ مگ</a></li>
+	      </ul>
+	    </div>
+	  </div>
+	  <div class="span4 vspan4">
+	    <div class="center span4" id="follow">
+	      <h3 class="ftitle">پاگ تهران در:</h3>
+	      <a href="https://github.com/tehpug" ><i class="icon-github icon-3x"></i></a>
+	      <a href="https://www.twitter.com/TehPUG" ><i class="icon-twitter icon-3x"></i></a>
+	      <a href="/news/feed/" ><i class="icon-rss icon-3x"></i></a>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="span12">
+	      <p align="center" class="small">Copyleft 2013-2014 TehPUG</p>
+	    </div>
+	  </div>
+	</div>
+    </footer>
+    {% endblock body %}
+    <script src="/static/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/js/jquery.slides.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    {% block tail %}
+    {% endblock tail %}
+    {% block analytic %}
+    {% endblock analytic %}
+  </body>
 </html>

@@ -1,0 +1,50 @@
+@font-face {
+   font-family: 'Droid Arabic Naskh';
+   src: url('/static/font/DroidNaskh-Regular.ttf') format('truetype'); /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+}
+
+
+* {
+   font-family: 'Droid Arabic Naskh', serif;
+}
+body {
+   direction: rtl;
+}
+#topmenu {
+   width: 940px;
+}
+#firstcontrols {
+   padding-right: 20px;
+}
+
+#sitetitle h1{
+   font-size: 40px;
+   text-align: center;
+}
+
+#sitetitle p {
+   margin: -60px 100px 0 0px;
+   font-size: 15px;
+}
+
+.small {
+   font-size: 12px;
+}
+.ftitle {
+   font-size: 20px;
+}
+.nav li a {
+   font-size: 14px;
+}
+
+.sociallinks {
+   float: left;
+}
+
+.left{
+   text-align:left !important;
+}
+
+.right {
+   text-align:right !important;
+}

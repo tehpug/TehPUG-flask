@@ -1,142 +1,34 @@
-/*--------------------Total Styling---------------------*/
 * {
-	margin: 0;
-	padding: 0;
-	direction: rtl;
+    font-family: "myriad-pro","Trebuchet MS","Arial", sans-serif, 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+.brand {
+    font-weight: 700;
 }
 
-@font-face { font-family: FreeFarsi; src: url('../fonts/FreeFarsi.ttf'); }
-@font-face { font-family: Titr; font-weight: bold; src: url('../fonts/Titr.ttf'); }
-@font-face { font-family: XB Zar; font-weight: bold; src: url('../fonts/XBZar.ttf'); }
-body {
-	background-color: #DDDDDD;
-	font-family: "FreeFarsi", arial, verdana, arial, helvetica, clean, sans-serif;
-	font-size: 20px;
+#mlform {
+    margin-left: -150px;
 }
-a{
-	text-decoration: none;
-	color: black;
+
+#sitetitle h1{
+    text-indent: 100px;
+    font-size: 50px;
+    padding-top: 10px;
+    margin-top: 40px;
 }
-a:hover{
-	color: green;
+
+#sitetitle p {
+    margin: -60px 0 0 100px;
+    font-size: 15px;
 }
-/*--------------------Header/Footer and Menu---------------------*/
-.Header{
-  background-color: #ACACAC;
-  width:100%;
-  height:60px;
+
+.sociallinks {
+    float: right;
 }
-#Himg{
-	height: 55px;
-	float: left;
-	margin-left: 10px;
-	margin-top: 2px
+
+.left{
+   text-align:left !important;
 }
-.Menu{
-	display: table;
-	margin-right: 10px;
-	margin-top: 10px;
-	list-style: none;
-	font-family: "Titr", arial, verdana, arial, helvetica, clean, sans-serif;
-	float: right;
-}
-.Menu li{
-	float: right;
-	padding-left: 3px;
-	padding-right: 3px;
-	margin-left: 20px;
-}
-.Footer{
-	position: relative;
-	bottom: 0;
-	height: 100px;
-	width: 100%;
-	background-color: #ACACAC;
-}
-/*--------------------Contents and Pages---------------------*/
-.Content{
-	height: 100%;
-	min-height: 490px;
-}
-#map, #Tehpug, #sessions, #Flist, #upload, #login, #register, #add_session, #C_sessions, #session-bar, #ss, #add_news, #C_news, #news, #add_user, #C_user{
-	margin: 15px; 
-	background-color: #808080;
-	width: 601px;
-	border-radius: 10px;
-}
-#map h3, #Tehpug h3, #sessions h3, #Flist h3, #upload h3, #login h3, #register h3, #add_session h3, #C_sessions h3, #ss h3, #add_news h3, #C_news h3, #news h3, #profile h3, #add_user h3, #C_user h3{
-	padding: 10px 15px 0 0;
-}
-#map p,#Tehpug p, #login p, #register p, #form-session p, #ss p, #form-news p, #news p, #profile p, #form-user p{
-	margin: 10px 15px 10px 10px;
-}
-#map img{
-	margin: 0 36px 10px 0;
-	border-radius: 7px;
-}
-#sessions{
-	float: left;
-	margin: 0 15px 15px 70px;
-}
-#ss, #news{
-	float: left;
-	width: 80%
-}
-#sessions li,#Flist li, #C_sessions li, #C_news li, #news li, #C_user li{
-	background-color: #DDDDDD;
-	list-style: none;
-	margin: 10px 30px 10px 50px;
-	border-radius: 7px;
-	padding: 3px;
-}
-#profile{
-	margin: auto;
-	background-color: #808080;
-	border-radius: 10px;
-	width: 90%
-}
-#avatar{
-	background-color: #DDDDDD;
-	list-style: none;
-	margin: 10px 10px 10px 10px;
-	border-radius: 7px;
-	padding: 3px;
-	float: right;
-}
-#login, #register{
-	margin: auto;
-	margin-top: 15px;
-	width: 269px;
-}
-/*--------------------login/CPanel and controls---------------------*/
-.Cpanel-bar, .session-bar, .news-bar, .user-menu{
-	background-color: #808080;
-	min-height: 490px;
-	width: 200px;
-	position: absolute;
-}
-.Cpanel-bar ul, .session-bar ul, .news-bar ul, .user-menu ul{
-	margin: 10px 0 0 0;
-}
-.Cpanel-bar li, .session-bar li, .news-bar li, .user-menu li{
-	background-color: #DDDDDD;
-	list-style: none;
-	margin: 0 10px 10px 10px;
-	border-radius: 7px;
-	padding: 3px;
-}
-#upload, #add_session,#add_news, #add_user{
-	width: 680px;
-	float: left;
-}
-#Flist, #C_sessions, #C_news, #C_user{
-	float: left;
-	width: 400px;
-	padding-bottom: 10px;
-}
-#formup, #form-session, #form-news, #form-user{
-	margin:15px;
-}
-#Flist li, #Flist ul, option, #website, #email{
-	direction: ltr;
+
+.right {
+   text-align:right !important;
 }

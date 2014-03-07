@@ -1,0 +1,404 @@
+* {
+   -webkit-font-smoothing: antialiased;
+   -webkit-text-stroke-width: 0.1px;
+}
+
+.header {
+   Background: #1f1f1f;
+   height: 460px;
+   width: 100%;
+   box-shadow: 0 2px 2px black;
+   -moz-box-shadow: 0 2px 2px black;
+   -werbkit-box-shadow: 0 2px 2px black;
+   Background: url('/static/img/pattern.gif') 0 0 repeat #1f1f1f;
+
+}
+
+.headerpattern {
+   padding: 0px 0 20px 0;
+   height: 460px;
+   width: 100%;
+}
+.secbanner {
+   Background: #f1f1f1;
+   background-image: radial-gradient(circle farthest-corner at center center , #f1f1f1 0%, #bdbdbd 100%);
+   background-image: -moz-radial-gradient(circle farthest-corner at center center , #f1f1f1 0%, #bdbdbd 100%);
+   background-image: -webkit-radial-gradient(circle, #f1f1f1 0%, #bdbdbd 100%);
+   background-image: -o-radial-gradient(circle, #f1f1f1 0%, #bdbdbd 100%);
+
+   border-bottom: 1px solid #adadad;
+}
+
+footer {
+   border-top: 3px solid #e1e1e1;
+   color : white;
+   background: url("/static/img/footpat.png") 0 0 repeat transparent;
+}
+
+footer a {
+   font-size: 15px;
+   color: white;
+   text-shadow: 0px 2px 3px black;
+   transition: text-shadow 300ms linear 0ms;
+   -moz-transition: text-shadow 300ms linear 0ms;
+   -webkit-transition: text-shadow 300ms linear 0ms;
+
+}
+
+footer a:hover {
+   color: white;
+   text-decoration: none;
+   text-shadow: 0px 2px 3px black;
+   transition: text-shadow 300ms linear 0ms;
+   -moz-transition: text-shadow 300ms linear 0ms;
+   -webkit-transition: text-shadow 300ms linear 0ms;
+
+}
+
+footer ul a {
+   color: white;
+   text-shadow: 0px 2px 3px black;
+   transition: text-shadow 300ms linear 0ms, opacity 300ms linear 0ms;
+   -moz-transition: text-shadow 300ms linear 0ms, opacity 300ms linear 0ms;
+   -webkit-transition: text-shadow 300ms linear 0ms, opacity 300ms linear 0ms;
+   opacity: 0.8;
+
+}
+
+footer ul {
+   list-style: none;
+}
+
+footer div.center.span3 ul.other {
+   /* max-height: 120px; */
+   margin: 0;
+}
+
+footer div.center.span3 ul.other li {
+   display: inline-block;
+   width: 48%;
+}
+
+footer ul li {
+   margin: 5px 0 5px 0;
+}
+
+footer ul a:hover {
+   color: white;
+   text-decoration: none;
+   opacity: 1;
+   text-shadow: 0px 2px 3px black;
+   transition: text-shadow 300ms linear 0ms, opacity 300ms linear 0ms;
+   -moz-transition: text-shadow 300ms linear 0ms, opacity 300ms linear 0ms;
+   -webkit-transition: text-shadow 300ms linear 0ms, opacity 300ms linear 0ms;
+
+}
+
+.maincontainer {
+   min-height: 300px;
+   margin: 80px auto;
+}
+.vspan4 {
+   padding: 20px 0 20px 0;
+   min-height: 200px;
+
+}
+
+.controls {
+   margin: 10px 0 10px 0;
+}
+
+.center {
+   margin: 0 auto;
+   float: none;
+}
+
+#follow {
+   opacity: 1;
+
+}
+
+#follow div{
+   margin: 0 20px;
+}
+
+#banner {
+   background-color: #E6E6E6;
+   background: url(img/linear_bg_2.png);
+   background-repeat: repeat-x;
+   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E6E6E6), to(#DEDEDE));
+   background: -webkit-linear-gradient(top, #DEDEDE, #E6E6E6);
+   background: -moz-linear-gradient(top, #DEDEDE, #E6E6E6);
+   background: -ms-linear-gradient(top, #DEDEDE, #E6E6E6);
+   background: -o-linear-gradient(top, #DEDEDE, #E6E6E6);
+   box-shadow: 0px -1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+section p {
+   text-align: justify;
+   padding-top: 10px;
+}
+
+article {
+   margin-bottom: 30px;
+}
+
+.newslist {
+   padding-top: 50px;
+   min-height: 400px;
+   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2) inset;
+
+}
+
+.address h2{
+   font-size: 45px;
+
+}
+
+.address {
+   Background: #f1f1f1;
+   border-bottom: 1px solid #adadad;
+   color: white;
+   min-height: 500px;
+   border-top1: 1px solid #adadad;
+   background-image: radial-gradient(circle, #44aaff 30%, #2299ee 100%);
+   background-image: -webkit-radial-gradient(circle, #44aaff 30%, #2299ee 100%);
+   background-image: -moz-radial-gradient(circle farthest-corner at center center , #44aaff 30%, #2299ee 100%);
+   background-image: -o-radial-gradient(circle, #44aaff 30%, #2299ee 100%);
+   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2) inset;
+   -moz-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2) inset;
+   -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2) inset;
+   -o-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2) inset;
+   text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+   -moz-text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+   -webkit-text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+   -o-text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.address>div {
+   width: 80%;
+   margin: auto;
+}
+
+.address .addrtext {
+   width: 50%;
+   display: inline-block;
+   margin: 6em auto;
+}
+
+.address #map {
+   width: 39%;
+   display: inline-block;
+   vertical-align: top;
+   margin: 4em auto;
+}
+
+.address p {
+   font-size: 22px;
+   line-height: 2;
+   text-align: justify;
+}
+
+div.navbar {
+   margin-bottom: 0;
+}
+
+#map a {
+   color: #A7E752;
+}
+
+#map iframe{
+   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+   -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+   -o-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+   border: 1px solid #0088cc;
+   border-radius: 2px;
+
+}
+
+#firstpage p{
+   font-size: 20px;
+   line-height: 1.5;
+}
+
+#firstpage h1{
+   font-size: 50px;
+   padding: 15px 0;
+   text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+   -moz-text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+   -webkit-text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+   -o-text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+
+}
+
+section p {
+   font-size: 18px;
+   line-height: 1.5;
+}
+
+.ltr-text {
+   direction: ltr; unicode-bidi: embed;
+}
+
+.sociallinks {
+   font-size: 90%;
+}
+
+.sociallinks i:hover {
+   text-decoration: initial;
+}
+
+
+
+
+/* SlidesJS Optional: If you'd like to use this design */
+#slides {
+   display: none
+}
+
+#slides img {
+   height: 100%;
+}
+
+#slides .slidesjs-navigation {
+   margin-top:5px;
+}
+
+a.slidesjs-next,
+   a.slidesjs-previous,
+      a.slidesjs-play,
+	 a.slidesjs-stop {
+	    background-image: url(/static/img/btns-next-prev.png);
+	    background-repeat: no-repeat;
+	    display:block;
+	    width:12px;
+	    height:18px;
+	    overflow: hidden;
+	    text-indent: -9999px;
+	    float: left;
+	    margin-right:5px;
+	 }
+
+a.slidesjs-next {
+   margin-right:10px;
+   background-position: -12px 0;
+}
+
+a:hover.slidesjs-next {
+   background-position: -12px -18px;
+}
+
+a.slidesjs-previous {
+   background-position: 0 0;
+}
+
+a:hover.slidesjs-previous {
+   background-position: 0 -18px;
+}
+
+a.slidesjs-play {
+   width:15px;
+   background-position: -25px 0;
+}
+
+a:hover.slidesjs-play {
+   background-position: -25px -18px;
+}
+
+a.slidesjs-stop {
+   width:18px;
+   background-position: -41px 0;
+}
+
+a:hover.slidesjs-stop {
+   background-position: -41px -18px;
+}
+
+.slidesjs-pagination {
+   margin: 7px 0 0;
+   float: right;
+   list-style: none;
+}
+
+.slidesjs-pagination li {
+   float: left;
+   margin: 0 1px;
+}
+
+.slidesjs-pagination li a {
+   display: block;
+   width: 13px;
+   height: 0;
+   padding-top: 13px;
+   background-image: url(/static/img/pagination.png);
+   background-position: 0 0;
+   float: left;
+   overflow: hidden;
+}
+
+.slidesjs-pagination li a.active,
+      .slidesjs-pagination li a:hover.active {
+	 background-position: 0 -13px
+      }
+
+.slidesjs-pagination li a:hover {
+   background-position: 0 -26px
+}
+
+#slides a:link,
+      #slides a:visited {
+	 color: #333
+      }
+
+#slides a:hover,
+	    #slides a:active {
+	       color: #9e2020
+	    }
+
+.navbar {
+   overflow: hidden
+}
+/* End SlidesJS Optional */
+
+/* /\* SlidesJS Required: These styles are required if you'd like a responsive slideshow *\/ */
+/* #slides { */
+/*    display: none */
+/* } */
+
+/* .container { */
+/*    margin: 0 auto */
+/* } */
+
+/*     /\* For tablets & smart phones *\/ */
+/* @media (max-width: 767px) { */
+/*    body { */
+/*       padding-left: 20px; */
+/*       padding-right: 20px; */
+/*    } */
+/*    .container { */
+/*       width: auto */
+/*    } */
+/* } */
+
+/*     /\* For smartphones *\/ */
+/* @media (max-width: 480px) { */
+/*    .container { */
+/*       width: auto */
+/*    } */
+/* } */
+
+/*     /\* For smaller displays like laptops *\/ */
+/* @media (min-width: 768px) and (max-width: 979px) { */
+/*    .container { */
+/*       width: 724px */
+/*    } */
+/* } */
+
+/*     /\* For larger displays *\/ */
+/* @media (min-width: 1200px) { */
+/*    .container { */
+/*       width: 1170px */
+/*    } */
+/* } */
+/* /\* SlidesJS Required *\/ */

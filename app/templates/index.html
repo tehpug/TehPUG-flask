@@ -1,22 +1,126 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div id="slides">
+	<img src="/static/img/slide-1.jpg"/>
+	<img src="/static/img/slide-2.jpg"/>
+	<img src="/static/img/slide-3.png"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="secbanner">
+  <div class="container">
+    <div class="row">
+      <div id="sitetitle">
+	<h1>
+	  <img src="/static/img/logo.png" />
+	  گروه کاربران پایتون تهران
+	</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock header %}
 
 {% block contents %}
-	<div id="sessions">
-		<h3>لیست جلسات اخیر</h3>
-		<ul>
-			{% for session in sessions %}
-				<a href="sessions/{{ session.id }}"><li>{{ session.title }}</li></a>
-			{% endfor %}
-		</ul>
-		<br>
-	</div>
-	<div id="Tehpug">
-		<h3>تهران پاگ چیست؟</h3>
-		<p>گروه کاربران پایتون (کارگروه پایتون) که با برگزاری جلسات دو هفته یک بار سعی در ایجاد تعامل و همکاری در اجرای پروژه های پایتونی و به اشتراک گذاشتن دانش و اندوخته های خود به هدف بالا بردن سطح دانش و استفاده پایتون در تهران فعالیت می کنند.</p>
-	</div>
-	<div id="map">
-		<h3>محل برگزاری جلسات</h3><br>
-		<img src="static/img/tehpug-address.jpg">
-		<p>گروه کاربران پایتون تهران هر دو هفته یکبار در روز سه‌شنبه از ساعت ۱۷ الی ۱۸ جلسه برگزار میکند. آدرس محل برگزاری جلسات: خیابان آفریقا - کوچه نور (آفریقا به سمت شمال بعد از ظفر، قبل از پمپ بنزین) - پلاک ۱۸، سالن آموزش شرکت توسن .</p>
-	</div>
+<div class="row">
+  <div class="span12">
+    <div id="firstpage">
+      <h1>
+	به صفحهٔ خانگی پاگ تهران خوش آمدید
+      </h1>
+      <section id="firstpagecontent">
+	<p>
+گروه کاربران پایتون تهران یا TehPUG گروهی از علاقه‌مندان پایتون در شهر تهران است که سعی در آشنایی بیشتر افراد با پایتون و گسترش آن دارد، همچنین محلی برای دیدار، آشنایی و هماهنگی برای برنامه‌نویس‌های فعلی پایتون می‌باشد.
+	</p>
+	<p>
+جلسات معمولا سه‌شنبه‌ها از ساعت ۱۷ تا ۱۸ قبل از <a href="http://tehlug.org/">تهران لاگ</a> برگزار مي‌شوند. شرکت در جلسات این گروه برای عموم آزاد است. شما نیز چنانچه علاقه‌مند هستید میتوانید در جلسات آن شرکت کنید و دانش خود را با سایر اعضا به اشتراک گذاشته و یا از دانش آنان استفاده کنید.
+	</p>
+      </section>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="address">
+  <div>
+    <div class="addrtext">
+      <h2>
+	<i class="icon-map-marker icon-large"></i>نشانی
+      </h2>
+      <p>
+	خیابان آفریقا - کوچه نور (آفریقا به سمت شمال بعد از ظفر، قبل از پمپ بنزین) - پلاک ۱۸، سالن آموزش شرکت توسن .
+      </p>
+    </div>
+    <div class="pull-left" id="map">
+      <a href="http://goo.gl/V1Qoz0" target="_blank">
+	<img src="/static/img/staticmap.jpg" class="img-rounded"/>
+      </a>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<div class="newslist">
+  <div class="container">
+    <div class="row">
+      {% for session in sessions %}
+      <article>
+	{% include 'social_links.html' %}
+	<h2>
+	  <a href="/sessions/{{ session.id }}">
+	    {{ session.title }}
+	  </a>
+	</h2>
+	<section>
+	  {{ session.description }}
+	</section>
+	<span>
+	  {{ session.date }}
+	</span>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}
+
+
+{% block extrahead %}
+{% endblock extrahead %}
+
+{% block analytic %}
+<script type="text/javascript">
+$(function() {
+    $('#slides').slidesjs({
+	height: 450,
+	play: {
+	    active: true,
+	    auto: true,
+	    interval: 6000,
+	    swap: true,
+	    effect: "fade"
+	},
+	navigation: {
+	    active: true,
+	    effect: "fade"
+	},
+	pagination: {
+	    active: true,
+	    effect: "fade"
+	},
+	effect: {
+	    fade: {
+		speed: 1000,
+		crossfade: true
+	    }
+	}
+    });
+});
+</script>
+{% endblock analytic %}
