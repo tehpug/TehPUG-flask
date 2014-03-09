@@ -23,9 +23,9 @@ A tree view of website
 	|   |-- templates
 	|   |   |-- 404.html
 	|   |   |-- base.html
-	|   |   |-- cpanel.html
-	|   |   |-- cpanel_news.html
-	|   |   |-- cpanel_sessions.html
+	|   |   |-- admin.html
+	|   |   |-- admin_news.html
+	|   |   |-- admin_sessions.html
 	|   |   |-- files.html
 	|   |   |-- index.html
 	|   |   |-- irc.html

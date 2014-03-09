@@ -1,9 +1,9 @@
-{% extends "cpanel.html" %}
+{% extends "admin.html" %}
 
 {% block controls %}
 	<div id="upload">
 		<h3>بارگزاری فایل جدید</h3>
-		<form id="formup" action = "/cpanel/files" method="post" enctype="multipart/form-data">
+		<form id="formup" action = "/admin/files" method="post" enctype="multipart/form-data">
 			<input type ="file" name = "file">
 			<button id="btnup" style="width: 70px; height: 20px;">بارگزاری</button>
 		</form>
@@ -23,7 +23,7 @@
 			show(typeof(makeHttpObject()));
 			function req(name){
 				var request = makeHttpObject();
-				request.open("DELETE", "/cpanel/files/"+name, false);
+				request.open("DELETE", "/admin/files/"+name, false);
 				request.send(null);
 			}
 		</script>

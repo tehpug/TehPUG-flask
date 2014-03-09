@@ -1,12 +1,12 @@
-{% extends "cpanel.html" %}
+{% extends "admin.html" %}
 
 {% block controls %}
-	<div id="add_session">
-		<h3>افزودن جلسه جدید</h3>
+	<div id="add_news">
+		<h3>افزودن خبر جدید</h3>
 		{% if id %}
-		<form id="form-session" action="/cpanel/sessions/{{ id }}" method="post" name="add-session">
+		<form id="form-news" action="/admin/news/{{ id }}" method="post" name="add-news">
 		{% else %}
-		<form id="form-session" action="/cpanel/sessions" method="post" name="add-session">
+		<form id="form-news" action="/admin/news" method="post" name="add-news">
 		{% endif %}
             {{ form.hidden_tag() }}
 			<p>
@@ -17,13 +17,10 @@
 				توضیحات:<br>
 				{{form.description(cols=75, rows=20)}}
 			</p>
-			<p>
-				{{ form.sound }}
-			</p>
-			<button id="btnsession" style="width: 50px; height: 20px;">ارسال</button>
+			<button id="btnnews" style="width: 50px; height: 20px;">ارسال</button>
 		</form>
 	</div>
-	<div id="C_sessions">
+	<div id="C_news">
 		<script type="text/javascript">
 			function makeHttpObject() {
   				try {return new XMLHttpRequest();}
@@ -38,15 +35,14 @@
 			show(typeof(makeHttpObject()));
 			function req(id){
 				var request = makeHttpObject();
-				request.open("DELETE", "/cpanel/sessions/"+id, false);
+				request.open("DELETE", "/admin/news/"+id, false);
 				request.send(null);
 			}
 		</script>
-		<h3>لیست جلسات</h3>
+		<h3>لیست اخبار</h3>
 		<ul>
-			{% for session in sessions %}
-					<li><a href="/cpanel/sessions/{{ session.id }}">{{ session.title }}</a> <button onclick="req({{ session.id }})">X</button>
-				</form>
+			{% for news in allnews %}
+				<li><a href="/admin/news/{{ news.id }}">{{ news.title }}</a> <button onclick="req({{ news.id }})">X</button></li>
 			{% endfor %}
 		</ul>
 	</div>

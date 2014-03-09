@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block contents %}
+	<aside class="Controls">
+		{% block controls %}
+		{% endblock %}
+	</aside>
+	<aside class="admin-bar">
+		<ul>
+			<li><a href="/admin/sessions">مدیریت جلسات</a></li>
+			<li><a href="/admin/news">مدیریت اخبار</a></li>
+			<li><a href="/admin/files">مدیریت فایل ها</a></li>
+			<li><a href="/admin/users">مدیریت کاربران</a></li>
+			<li><a href="/logout">خروج</a></li>
+		</ul>
+	</aside>
+{% endblock %}

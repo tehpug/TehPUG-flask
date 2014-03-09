@@ -39,7 +39,7 @@ def login():
 			if user.password == sha256(form.password.data).hexdigest():
 				login_user(user, remember = form.remember_me.data)
 	if g.user is not None and g.user.is_authenticated() and g.user.admin:
-		return redirect(request.args.get('next') or url_for('cpanel'))
+		return redirect(request.args.get('next') or url_for('admin'))
 	if g.user is not None and g.user.is_authenticated() and  not g.user.admin:
 		return redirect(request.args.get('next') or '/user/' + g.user.username)
 	return render_template('login.html', form = form)
@@ -71,19 +71,19 @@ def function(username):
 	else:
 		return render_template('user.html', user = user)
 
-###----------------------Cpanel--------------------###
-@app.route('/cpanel')
+###----------------------admin--------------------###
+@app.route('/admin')
 @login_required
-def cpanel():
+def admin():
 	if g.user.admin:
-		return render_template('cpanel.html')
+		return render_template('admin.html')
 	else:
 		return render_template('access_err.html')
 
-@app.route('/cpanel/sessions', methods = ['GET', 'POST'])
-@app.route('/cpanel/sessions/<id>', methods = ['GET', 'POST', 'DELETE'])
+@app.route('/admin/sessions', methods = ['GET', 'POST'])
+@app.route('/admin/sessions/<id>', methods = ['GET', 'POST', 'DELETE'])
 @login_required
-def cpanel_sessions(id = None):
+def admin_sessions(id = None):
 	if g.user.admin:
 		if request.method == 'DELETE' and id:
 			db.session.delete(Session.query.get(id))
@@ -117,14 +117,14 @@ def cpanel_sessions(id = None):
 			db.session.commit()
 		sessions = Session.query.all()
 		files = os.listdir('app/static/uploaded')
-		return render_template('cpanel_sessions.html', form = form, sessions = sessions, files = files, id = id)
+		return render_template('admin_sessions.html', form = form, sessions = sessions, files = files, id = id)
 	else:
 		return render_template('access_err.html')
 
-@app.route('/cpanel/news', methods = ['GET', 'POST'])
-@app.route('/cpanel/news/<id>', methods = ['GET', 'POST', 'DELETE'])
+@app.route('/admin/news', methods = ['GET', 'POST'])
+@app.route('/admin/news/<id>', methods = ['GET', 'POST', 'DELETE'])
 @login_required
-def cpanel_news(id = None):
+def admin_news(id = None):
 	if g.user.admin:
 		if request.method == 'DELETE' and id:
 			db.session.delete(News.query.get(id))
@@ -151,12 +151,12 @@ def cpanel_news(id = None):
 			db.session.add(news)
 			db.session.commit()
 		allnews = News.query.all()
-		return render_template('cpanel_news.html', form = form, allnews = allnews, id = id)
+		return render_template('admin_news.html', form = form, allnews = allnews, id = id)
 	else:
 		return render_template('access_err.html')
 
-@app.route('/cpanel/files', methods = ['GET', 'POST'])
-@app.route('/cpanel/files/<name>', methods = ['GET', 'DELETE'])
+@app.route('/admin/files', methods = ['GET', 'POST'])
+@app.route('/admin/files/<name>', methods = ['GET', 'DELETE'])
 @login_required
 def files(name = None):
 	ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'ogg', 'mp3', 'mp4', 'flv'])
@@ -173,8 +173,8 @@ def files(name = None):
 	else:
 		return render_template('access_err.html')
 
-@app.route('/cpanel/users', methods = ['GET', 'POST'])
-@app.route('/cpanel/users/<id>', methods = ['GET', 'POST', 'DELETE'])
+@app.route('/admin/users', methods = ['GET', 'POST'])
+@app.route('/admin/users/<id>', methods = ['GET', 'POST', 'DELETE'])
 @login_required
 def users(id = None):
 	if g.user.admin:
@@ -216,7 +216,7 @@ def users(id = None):
 			db.session.add(user)
 			db.session.commit()
 		alluser = User.query.all()
-		return render_template('cpanel_users.html', form = form, alluser = alluser)
+		return render_template('admin_users.html', form = form, alluser = alluser)
 	else:
 		return render_template('access_err.html')
 ###-------------------Base and Menu----------------###

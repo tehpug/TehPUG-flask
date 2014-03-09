@@ -1,4 +1,4 @@
-{% extends "cpanel.html" %}
+{% extends "admin.html" %}
 
 {% block controls %}
 	<div id="add_user">
@@ -7,9 +7,9 @@
 		<p>{{error}}</p>
 		{% endfor %}
 		{% if id %}
-		<form id="form-user" action="/cpanel/users/{{ id }}" method="post" name="add-user">
+		<form id="form-user" action="/admin/users/{{ id }}" method="post" name="add-user">
 		{% else %}
-		<form id="form-user" action="/cpanel/users" method="post" name="add-user">
+		<form id="form-user" action="/admin/users" method="post" name="add-user">
 		{% endif %}
             {{ form.hidden_tag() }}
 			<p>
@@ -45,14 +45,14 @@
 			show(typeof(makeHttpObject()));
 			function req(id){
 				var request = makeHttpObject();
-				request.open("DELETE", "/cpanel/users/"+id, false);
+				request.open("DELETE", "/admin/users/"+id, false);
 				request.send(null);
 			}
 		</script>
 		<h3>لیست کاربران</h3>
 		<ul>
 			{% for user in alluser %}
-				<li><a href="/cpanel/users/{{ user.id }}">{{ user.username }}</a> <button onclick="req({{ user.id }})">X</button></li>
+				<li><a href="/admin/users/{{ user.id }}">{{ user.username }}</a> <button onclick="req({{ user.id }})">X</button></li>
 			{% endfor %}
 		</ul>
 	</div>
