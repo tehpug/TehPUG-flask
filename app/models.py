@@ -10,6 +10,8 @@ class User(db.Model):
 	website = db.Column(db.String(50))
 	bio = db.Column(db.String(256))
 	admin = db.Column(db.Boolean, default = False)
+	created = db.Column(db.DateTime)
+
 
 	def avatar(self, size):
 		return 'http://www.gravatar.com/avatar/' + md5(self.email).hexdigest() + '?mm&s=' + str(size) +'&d=retro'
@@ -35,6 +37,8 @@ class Session(db.Model):
 	title = db.Column(db.String(100), index = True)
 	description = db.Column(db.String(4000), index = True)
 	sound = db.Column(db.String(200))
+	created = db.Column(db.DateTime)
+	modified = db.Column(db.DateTime)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	def __repr__(self):
@@ -45,7 +49,8 @@ class News(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	title = db.Column(db.String(100), index = True)
 	description = db.Column(db.String(4000), index = True)
-	time = db.Column(db.DateTime)
+	created = db.Column(db.DateTime)
+	modified = db.Column(db.DateTime)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 	def __repr__(self):

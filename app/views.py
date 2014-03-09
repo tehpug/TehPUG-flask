@@ -24,7 +24,8 @@ def register():
 			username = form.username.data, 
 			password = sha256(form.password.data).hexdigest(),
 			email = form.email.data,
-			admin = False)
+			admin = False,
+			created = datetime.now())
 		db.session.add(user)
 		db.session.commit()
 		return redirect(request.args.get('next') or url_for('login'))
@@ -89,7 +90,7 @@ def admin_sessions(id = None):
 			db.session.delete(Session.query.get(id))
 			db.session.commit()
 		form = AddSessionForm()
-		sounds = []
+		sounds = [('#', 'No File')]
 		files = os.listdir('app/static/uploaded')
 		for f in files:
 			sounds += [(f,f)]
@@ -105,6 +106,7 @@ def admin_sessions(id = None):
 			session.description = form.description.data
 			session.sound = form.sound.data
 			session.user_id = g.user.id
+			session.modified = datetime.now()
 			db.session.add(session)
 			db.session.commit()
 		if not id and form.validate_on_submit():
@@ -112,11 +114,11 @@ def admin_sessions(id = None):
 				title = form.title.data,
 				description = form.description.data,
 				sound = form.sound.data,
-				user_id = g.user.id)
+				user_id = g.user.id,
+				created = datetime.now())
 			db.session.add(session)
 			db.session.commit()
 		sessions = Session.query.all()
-		files = os.listdir('app/static/uploaded')
 		return render_template('admin_sessions.html', form = form, sessions = sessions, files = files, id = id)
 	else:
 		return render_template('access_err.html')
@@ -138,16 +140,16 @@ def admin_news(id = None):
 			news = News.query.get(int(id))
 			news.title = form.title.data
 			news.description = form.description.data
-			news.time = datetime.now()
 			news.user_id = g.user.id
+			news.modified = datetime.now()
 			db.session.add(news)
 			db.session.commit()
 		if not id and form.validate_on_submit():
 			news = News(
 				title = form.title.data,
 				description = form.description.data,
-				time = datetime.now(),
-				user_id = g.user.id)
+				user_id = g.user.id,
+				created = datetime.now())
 			db.session.add(news)
 			db.session.commit()
 		allnews = News.query.all()
@@ -212,7 +214,8 @@ def users(id = None):
 			username = form.username.data, 
 			password = sha256(form.password.data).hexdigest(),
 			email = form.email.data,
-			admin = role)
+			admin = role,
+			created = datetime.now())
 			db.session.add(user)
 			db.session.commit()
 		alluser = User.query.all()
