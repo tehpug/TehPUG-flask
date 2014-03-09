@@ -18,12 +18,13 @@ def before_request():
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
-	form = RegisterForm()
+	form = RegisterForm(admin = 'No')
 	if form.validate_on_submit():
 		user = User(
 			username = form.username.data, 
 			password = sha256(form.password.data).hexdigest(),
-			email = form.email.data)
+			email = form.email.data,
+			admin = False)
 		db.session.add(user)
 		db.session.commit()
 		return redirect(request.args.get('next') or url_for('login'))
@@ -34,14 +35,13 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(username = form.username.data).first()
-		print user.username
 		if user:
 			if user.password == sha256(form.password.data).hexdigest():
 				login_user(user, remember = form.remember_me.data)
 	if g.user is not None and g.user.is_authenticated() and g.user.admin:
 		return redirect(request.args.get('next') or url_for('cpanel'))
 	if g.user is not None and g.user.is_authenticated() and  not g.user.admin:
-		return redirect(request.args.get('next') or url_for('cpanel'))
+		return redirect(request.args.get('next') or '/user/' + g.user.username)
 	return render_template('login.html', form = form)
 
 
@@ -49,7 +49,7 @@ def login():
 @login_required
 def logout():
 	logout_user()
-	return redirect(url_for('index'))
+	return redirect(request.args.get('next') or url_for('index'))
 
 ###-------------------User Profile-----------------###
 @app.route('/user/<username>', methods = ['GET', 'POST'])
@@ -108,7 +108,6 @@ def cpanel_sessions(id = None):
 			db.session.add(session)
 			db.session.commit()
 		if not id and form.validate_on_submit():
-			print form.sound.data
 			session = Session(
 				title = form.title.data,
 				description = form.description.data,
@@ -251,7 +250,8 @@ def news(id = None):
 	if id:
 		news = News.query.get(int(id))
 		comments = Comments.query.filter_by(news_id = int(id))
-		return render_template('news.html', allnews = allnews, news = news, comments = comments)
+		user = User.query.get(news.user_id)
+		return render_template('news.html', allnews = allnews, news = news, comments = comments, user = user)
 	return render_template('news.html', allnews = allnews)
 
 @app.route('/list')

@@ -6,9 +6,9 @@
 			<h3>{{ ss.title }}</h3>
 			<p>{{ ss.description }}</p>
 			<br>
-			<p>فایل صوتی این جلسه رو می تونید از <a href="/static/uploaded/{{ ss.sound }}">اینجا</a> دانلود کنید</p>
+			<p>در صورت وجود شما می توانید فیابل های مربوط به این جلسه را از<a href="/static/uploaded/{{ ss.sound }}">اینجا</a> دانلود کنید</p>
 			<hr>
-			<p><a href="mailto:{{ user.email }}">{{ user.username }}</a></p>
+			<p><a href="/users/{{ user.username }}">{{ user.username }}</a></p>
 		{% endif %}
 	</aside>
 	<aside class="session-bar">

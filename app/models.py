@@ -51,13 +51,3 @@ class News(db.Model):
 	def __repr__(self):
 		return '<News %r>' % (self.title)
 
-class Comments(db.Model):
-	"""Comments for News in Database"""
-	id = db.Column(db.Integer, primary_key = True)
-	comment = db.Column(db.String(1000), index = True)
-	time = db.Column(db.DateTime)
-	news_id = db.Column(db.Integer, db.ForeignKey('news.id'))
-	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-	def __repr__(self):
-		return '<comment %r>' % (self.comment)

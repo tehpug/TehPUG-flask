@@ -5,6 +5,7 @@
 		{% if news %}
 			<h3>{{ news.title }}</h3>
 			<p>{{ news.description }}</p>
+			<p>نوشته شده توسط <a href="/users/{{user.username}}">{{user.username}}</a></p>
 		{% endif %}
 	</aside>
 	<aside class="news-bar">
