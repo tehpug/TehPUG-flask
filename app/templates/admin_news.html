@@ -4,45 +4,35 @@
 	<div id="add_news">
 		<h3>افزودن خبر جدید</h3>
 		{% if id %}
-		<form id="form-news" action="/admin/news/{{ id }}" method="post" name="add-news">
+		<form id="form-news" class="form-horizontal" action="/admin/news/{{ id }}" method="post" name="add-news">
 		{% else %}
-		<form id="form-news" action="/admin/news" method="post" name="add-news">
+		<form id="form-news" class="form-horizontal" action="/admin/news" method="post" name="add-news">
 		{% endif %}
             {{ form.hidden_tag() }}
-			<p>
-				عنوان:
-				{{ form.title(size=70) }}
-			</p>
-			<p>
-				توضیحات:<br>
-				{{form.description(cols=75, rows=20)}}
-			</p>
-			<button id="btnnews" style="width: 50px; height: 20px;">ارسال</button>
+        <div class="control-group">
+          <label class="control-label" for="title">عنوان</label>
+          <div class="controls">
+            {{ form.title(id='title')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="description">توضیحات</label>
+          <div class="controls">
+            {{form.description(cols=75, rows=20, id='description')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">ارسال</button>
+          </div>
+        </div>
 		</form>
 	</div>
 	<div id="C_news">
-		<script type="text/javascript">
-			function makeHttpObject() {
-  				try {return new XMLHttpRequest();}
-  				catch (error) {}
-  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
-  				catch (error) {}
- 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
-  				catch (error) {}
-
-  				throw new Error("Could not create HTTP request object.");
-			}
-			show(typeof(makeHttpObject()));
-			function req(id){
-				var request = makeHttpObject();
-				request.open("DELETE", "/admin/news/"+id, false);
-				request.send(null);
-			}
-		</script>
 		<h3>لیست اخبار</h3>
 		<ul>
 			{% for news in allnews %}
-				<li><a href="/admin/news/{{ news.id }}">{{ news.title }}</a> <button onclick="req({{ news.id }})">X</button></li>
+				<li> <a href="/admin/news/{{ news.id }}">{{ news.title }}</a></li>
 			{% endfor %}
 		</ul>
 	</div>

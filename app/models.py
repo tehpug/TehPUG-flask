@@ -8,10 +8,10 @@ class User(db.Model):
     password = db.Column(db.String(64))
     email = db.Column(db.String(100), index = True, unique = True)
     website = db.Column(db.String(50))
-    bio = db.Column(db.String(256))
+    bio = db.Column(db.Text(256))
+    admin = db.Column(db.Boolean, default = False)
     sessions = db.relationship("Session", backref = 'session', lazy = 'dynamic')
     news = db.relationship("News", backref = 'news', lazy = 'dynamic')
-    admin = db.Column(db.Boolean, default = False)
     created = db.Column(db.DateTime)
 
 
@@ -37,11 +37,11 @@ class Session(db.Model):
     """sessions info in Database"""
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(100), index = True)
-    description = db.Column(db.String(4000), index = True)
+    description = db.Column(db.Text(4000), index = True)
     sound = db.Column(db.String(200))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime)
     modified = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<Session %r>' % (self.title)
@@ -50,10 +50,10 @@ class News(db.Model):
     """News info in Database"""
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(100), index = True)
-    description = db.Column(db.String(4000), index = True)
+    description = db.Column(db.Text(4000), index = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     created = db.Column(db.DateTime)
     modified = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
         return '<News %r>' % (self.title)

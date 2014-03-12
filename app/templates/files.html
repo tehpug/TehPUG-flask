@@ -3,34 +3,25 @@
 {% block controls %}
 	<div id="upload">
 		<h3>بارگزاری فایل جدید</h3>
-		<form id="formup" action = "/admin/files" method="post" enctype="multipart/form-data">
-			<input type ="file" name = "file">
-			<button id="btnup" style="width: 70px; height: 20px;">بارگزاری</button>
+		<form id="formup" class="form-horizontal" action = "/admin/files" method="post" enctype="multipart/form-data">
+		  <div class="control-group">
+            <label class="control-label" for="upload">بارگزاری</label>
+            <div class="controls">
+              <input type="file" id="upload" name="file">
+            </div>
+          </div>
+			<div class="control-group">
+              <div class="controls">
+                <button type="submit" class="btn btn-primary">ارسال</button>
+              </div>
+            </div>
 		</form>
 	</div>
 	<div id="Flist">
-		<script type="text/javascript">
-			function makeHttpObject() {
-  				try {return new XMLHttpRequest();}
-  				catch (error) {}
-  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
-  				catch (error) {}
- 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
-  				catch (error) {}
-
-  				throw new Error("Could not create HTTP request object.");
-			}
-			show(typeof(makeHttpObject()));
-			function req(name){
-				var request = makeHttpObject();
-				request.open("DELETE", "/admin/files/"+name, false);
-				request.send(null);
-			}
-		</script>
 		<h3>فایلها</h3>
 		<ul>
 			{% for file in files %}
-				<li>{{ file }} <button onclick="req('{{ file }}')">X</button></li>
+				<li>{{ file }}</li>
 			{% endfor %}
 		</ul>
 	</div>

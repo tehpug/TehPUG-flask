@@ -94,6 +94,19 @@ footer ul a:hover {
 
 }
 
+.admin-bar ul {
+   list-style: none;
+   margin-right: 0;
+}
+
+.admin-bar ul li {
+   display: inline-block;
+   margin-left: 50px;
+   background-color: rgba(252, 239, 239, 0.5);
+   padding: 5px 10px;
+   border-radius: 100px;
+}
+
 .maincontainer {
    min-height: 300px;
    margin: 80px auto;

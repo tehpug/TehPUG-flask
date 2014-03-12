@@ -4,48 +4,41 @@
 	<div id="add_session">
 		<h3>افزودن جلسه جدید</h3>
 		{% if id %}
-		<form id="form-session" action="/admin/sessions/{{ id }}" method="post" name="add-session">
+		<form id="form-session" class="form-horizontal" action="/admin/sessions/{{ id }}" method="post" name="add-session">
 		{% else %}
-		<form id="form-session" action="/admin/sessions" method="post" name="add-session">
+		<form id="form-session" class="form-horizontal" action="/admin/sessions" method="post" name="add-session">
 		{% endif %}
             {{ form.hidden_tag() }}
-			<p>
-				عنوان:
-				{{ form.title(size=70) }}
-			</p>
-			<p>
-				توضیحات:<br>
-				{{form.description(cols=75, rows=20)}}
-			</p>
-			<p>
-				{{ form.sound }}
-			</p>
-			<button id="btnsession" style="width: 50px; height: 20px;">ارسال</button>
+        <div class="control-group">
+          <label class="control-label" for="title">عنوان</label>
+          <div class="controls">
+            {{ form.title(id='title')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="description">توضیحات</label>
+          <div class="controls">
+            {{form.description(cols=75, rows=20, id='description')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="sound">فایل صوتی</label>
+          <div class="controls">
+            {{form.sound(id='sound')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">ارسال</button>
+          </div>
+        </div>
 		</form>
 	</div>
 	<div id="C_sessions">
-		<script type="text/javascript">
-			function makeHttpObject() {
-  				try {return new XMLHttpRequest();}
-  				catch (error) {}
-  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
-  				catch (error) {}
- 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
-  				catch (error) {}
-
-  				throw new Error("Could not create HTTP request object.");
-			}
-			show(typeof(makeHttpObject()));
-			function req(id){
-				var request = makeHttpObject();
-				request.open("DELETE", "/admin/sessions/"+id, false);
-				request.send(null);
-			}
-		</script>
 		<h3>لیست جلسات</h3>
 		<ul>
 			{% for session in sessions %}
-					<li><a href="/admin/sessions/{{ session.id }}">{{ session.title }}</a> <button onclick="req({{ session.id }})">X</button>
+					<li><a href="/admin/sessions/{{ session.id }}">{{ session.title }}</a></li>
 				</form>
 			{% endfor %}
 		</ul>

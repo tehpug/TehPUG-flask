@@ -7,7 +7,7 @@
       <div id="slides">
 	<img src="/static/img/slide-1.jpg"/>
 	<img src="/static/img/slide-2.jpg"/>
-	<img src="/static/img/slide-3.png"/>
+	<img src="/static/img/slide-3.jpg"/>
       </div>
     </div>
   </div>
@@ -82,7 +82,10 @@
 	  {{ session.description }}
 	</section>
 	<span>
-	  {{ session.date }}
+	  در {{ session.created | localize_date }}
+	</span>
+    <span>
+	  توسط {{ session.session.username }}
 	</span>
       </article>
       {% endfor %}

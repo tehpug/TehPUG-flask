@@ -7,52 +7,47 @@
 		<p>{{error}}</p>
 		{% endfor %}
 		{% if id %}
-		<form id="form-user" action="/admin/users/{{ id }}" method="post" name="add-user">
+		<form id="form-user" class="form-horizontal" action="/admin/users/{{ id }}" method="post" name="add-user">
 		{% else %}
-		<form id="form-user" action="/admin/users" method="post" name="add-user">
+		<form id="form-user" class="form-horizontal" action="/admin/users" method="post" name="add-user">
 		{% endif %}
             {{ form.hidden_tag() }}
-			<p>
-        	نام کاربری:<br>
-        	{{ form.username(size=26) }}<br>
-    		</p>
-			<p>
-        	گذرواژه:<br>
-        	{{ form.password(size=26) }}<br>
-    		</p>
-    		<p>
-    		ایمیل:<br>
-    		{{ form.email(size=26) }}
-    		</p>
-    		<p>
-				{{ form.admin }}
-			</p>
-			<button id="btnuser" style="width: 50px; height: 20px;">ارسال</button>
+        <div class="control-group">
+          <label class="control-label" for="username">نام کاربری:</label>
+          <div class="controls">
+            {{ form.username(id='username')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="password">گذر واژه:</label>
+          <div class="controls">
+            {{ form.password(id='password')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="email">ایمیل:</label>
+          <div class="controls">
+            {{ form.email(id='email')}}
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="admin">ادمین:</label>
+          <div class="controls">
+            {{ form.admin(id='admin')}}
+          </div>
+        </div>
+		<div class="control-group">
+          <div class="controls">
+            <button type="submit" class="btn btn-primary">ارسال</button>
+          </div>
+        </div>
 		</form>
 	</div>
 	<div id="C_user">
-		<script type="text/javascript">
-			function makeHttpObject() {
-  				try {return new XMLHttpRequest();}
-  				catch (error) {}
-  				try {return new ActiveXObject("Msxml2.XMLHTTP");}
-  				catch (error) {}
- 				 try {return new ActiveXObject("Microsoft.XMLHTTP");}
-  				catch (error) {}
-
-  				throw new Error("Could not create HTTP request object.");
-			}
-			show(typeof(makeHttpObject()));
-			function req(id){
-				var request = makeHttpObject();
-				request.open("DELETE", "/admin/users/"+id, false);
-				request.send(null);
-			}
-		</script>
 		<h3>لیست کاربران</h3>
 		<ul>
 			{% for user in alluser %}
-				<li><a href="/admin/users/{{ user.id }}">{{ user.username }}</a> <button onclick="req({{ user.id }})">X</button></li>
+				<li><a href="/admin/users/{{ user.id }}">{{ user.username }}</a></li>
 			{% endfor %}
 		</ul>
 	</div>

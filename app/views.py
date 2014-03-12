@@ -21,7 +21,7 @@ def register():
 	form = RegisterForm(admin = 'No')
 	if form.validate_on_submit():
 		user = User(
-			username = form.username.data, 
+			username = form.username.data,
 			password = sha256(form.password.data).hexdigest(),
 			email = form.email.data,
 			admin = False,
@@ -211,7 +211,7 @@ def users(id = None):
 			elif form.admin.data == 'No':
 				role = False
 			user = User(
-			username = form.username.data, 
+			username = form.username.data,
 			password = sha256(form.password.data).hexdigest(),
 			email = form.email.data,
 			admin = role,
